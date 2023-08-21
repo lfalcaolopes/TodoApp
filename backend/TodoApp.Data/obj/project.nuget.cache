@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Dr2M4LMP1cLOzGcUpgPlgqt1zxlFX5NdcWjnG1N5dn7A2SZ6zXFOkfde9ly8HFF7DNUZdeDvhSo9YXrbj4najA==",
+  "dgSpecHash": "JH9brCG+8o2xlgX88xnlrYgl1rPq4MQ+l+Dryamy95ODezQ40uQq9Cb0dcD+scv6EcjTREwn4wqw8mZUDlt5hg==",
   "success": true,
   "projectFilePath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.10\\microsoft.entityframeworkcore.analyzers.7.0.10.nupkg.sha512",
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.10\\microsoft.entityframeworkcore.design.7.0.10.nupkg.sha512",
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.10\\microsoft.entityframeworkcore.relational.7.0.10.nupkg.sha512",
+    "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.10\\microsoft.entityframeworkcore.tools.7.0.10.nupkg.sha512",
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\lfalcao\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
