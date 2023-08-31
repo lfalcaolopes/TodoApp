@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj": {}
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj": {
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj",
         "projectName": "TodoApp.Data",
-        "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj",
-        "packagesPath": "C:\\Users\\lfalcao\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Data\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Data\\TodoApp.Data.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lfalcao\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj": {
-                "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj"
+              "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj": {
+                "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj"
               },
-              "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
-                "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj"
+              "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
+                "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj"
               }
             }
           }
@@ -47,23 +47,27 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[6.0.21, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[6.0.21, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.21, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[6.0.21, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[7.0.4, )"
+              "version": "[6.0.8, )"
             }
           },
           "imports": [
@@ -86,17 +90,17 @@
         }
       }
     },
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj": {
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj",
         "projectName": "TodoApp.Domain",
-        "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj",
-        "packagesPath": "C:\\Users\\lfalcao\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Domain\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\TodoApp.Domain.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lfalcao\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -119,6 +123,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -139,17 +149,17 @@
         }
       }
     },
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
         "projectName": "TodoApp.Shared",
-        "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
-        "packagesPath": "C:\\Users\\lfalcao\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lfalcao\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -172,6 +182,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

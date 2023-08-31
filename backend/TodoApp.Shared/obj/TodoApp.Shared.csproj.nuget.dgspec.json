@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {}
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
+    "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
+        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
         "projectName": "TodoApp.Shared",
-        "projectPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
-        "packagesPath": "C:\\Users\\lfalcao\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lfalcao\\Desktop\\Code\\TodoApp\\backend\\TodoApp.Shared\\obj\\",
+        "projectPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\TodoApp.Shared.csproj",
+        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucas\\OneDrive\\Área de Trabalho\\TodoApp\\backend\\TodoApp.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lfalcao\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[6.0.21, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -10,3 +10,15 @@ C:\Users\lfalcao\Desktop\Code\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\To
 C:\Users\lfalcao\Desktop\Code\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\refint\TodoApp.Shared.dll
 C:\Users\lfalcao\Desktop\Code\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.pdb
 C:\Users\lfalcao\Desktop\Code\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\ref\TodoApp.Shared.dll
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\bin\Debug\net6.0\TodoApp.Shared.deps.json
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\bin\Debug\net6.0\TodoApp.Shared.dll
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\bin\Debug\net6.0\TodoApp.Shared.pdb
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.csproj.AssemblyReference.cache
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.AssemblyInfoInputs.cache
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.AssemblyInfo.cs
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.csproj.CoreCompileInputs.cache
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.dll
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\refint\TodoApp.Shared.dll
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\TodoApp.Shared.pdb
+C:\Users\lucas\OneDrive\Área de Trabalho\TodoApp\backend\TodoApp.Shared\obj\Debug\net6.0\ref\TodoApp.Shared.dll
