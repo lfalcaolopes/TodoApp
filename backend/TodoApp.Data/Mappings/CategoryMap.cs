@@ -15,6 +15,6 @@ public class CategoryMap : IEntityTypeConfiguration<Category>
         builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Property(x => x.Name).IsRequired().HasMaxLength(20);
         builder.Property(x => x.Color).IsRequired().HasMaxLength(7);
-        builder.HasMany(x => x.TodoTasks).WithOne(x => x.Category).HasForeignKey(x => x.Id);
+        builder.HasMany(x => x.TodoTasks).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId);
     }
 }

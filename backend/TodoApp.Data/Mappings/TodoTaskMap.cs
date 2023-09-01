@@ -16,6 +16,8 @@ public class TodoTaskMap : IEntityTypeConfiguration<TodoTask>
         builder.Property(x => x.Name).IsRequired().HasMaxLength(40);
         builder.Property(x => x.IsComplete).IsRequired();
         builder.Property(x => x.DueDate).IsRequired();
-        builder.HasOne(x => x.Category).WithMany(x => x.TodoTasks).HasForeignKey(x => x.Id);
+        builder.Property(x => x.CategoryId).IsRequired();
+        
+        builder.HasOne(x => x.Category).WithMany(x => x.TodoTasks).HasForeignKey(x => x.CategoryId);
     }
 }

@@ -20,7 +20,7 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(command.Name, command.DueDate, new Category("createTest", "#tteess", new List<TodoTask>())));
+            var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(command.Name, command.DueDate, command.CategoryId));
             
             return new CommandResult(true, "TodoTask created successfully", todoTaskToCreate);
         }

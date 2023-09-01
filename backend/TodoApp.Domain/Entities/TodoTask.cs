@@ -7,18 +7,13 @@ public class TodoTask
     public string Name { get; set; }
     public bool IsComplete { get; set; } = false;
     public DateTime DueDate { get; set; }
-    public Category Category { get; set; }
+    public int CategoryId { get; set; }
+    public virtual Category? Category { get; set; }
 
-    protected TodoTask(string name,  DateTime dueDate)
+    public TodoTask(string name, DateTime dueDate, int categoryId)
     {
         Name = name;
         DueDate = dueDate;
-        Category = null!;
-    }
-    public TodoTask(string name, DateTime dueDate, Category category)
-    {
-        Name = name;
-        DueDate = dueDate;
-        Category = category;
+        CategoryId = categoryId;
     }
 }

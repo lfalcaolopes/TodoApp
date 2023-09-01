@@ -20,7 +20,7 @@ public class CategoryHandler : ICategoryHandler
     {
         try
         {
-            var categoryToCreate = await _repository.CreateAsync(new Category(command.Name, command.Color, new List<TodoTask>()));
+            var categoryToCreate = await _repository.CreateAsync(new Category(command.Name, command.Color));
 
             return new CommandResult(true, "Category created successfully", categoryToCreate);
         }
@@ -50,11 +50,8 @@ public class CategoryHandler : ICategoryHandler
         {
             var categoryToUpdate = await _repository.GetByIdAsync(command.Id);
 
-            if(command.Name != null)
-                categoryToUpdate.Name = command.Name;
-            
-            if(command.Color != null)
-                categoryToUpdate.Color = command.Color;
+            categoryToUpdate.Name = command.Name ?? categoryToUpdate.Name;
+            categoryToUpdate.Color = command.Color ?? categoryToUpdate.Color;
 
             var categoryUpdated = await _repository.UpdateAsync(categoryToUpdate);
 
@@ -71,7 +68,6 @@ public class CategoryHandler : ICategoryHandler
         try
         {
             var categoryToDelete = await _repository.GetByIdAsync(command.Id);
-
             var categoryDeleted = await _repository.DeleteAsync(categoryToDelete);
 
             return new CommandResult(true, "Category deleted successfully", categoryDeleted);
