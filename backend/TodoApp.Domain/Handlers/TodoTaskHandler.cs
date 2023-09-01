@@ -44,7 +44,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(GetAllCategoriesDto command)
+    public async Task<CommandResult> HandleAsync(GetAllTodoTaskDto command)
     {
         try
         {
@@ -58,11 +58,11 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(UpdateTodoTaskDto command)
+    public async Task<CommandResult> HandleAsync(UpdateTodoTaskDto command, int todoTaskId)
     {
         try
         {
-            var todoTaskToUpdate = await _repository.GetByIdAsync(command.Id);
+            var todoTaskToUpdate = await _repository.GetByIdAsync(todoTaskId);
 
             todoTaskToUpdate.Name = command.Name ?? todoTaskToUpdate.Name;
             todoTaskToUpdate.DueDate = command.DueDate ?? todoTaskToUpdate.DueDate;

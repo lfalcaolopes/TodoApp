@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "TodoApp.Tests/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.21",
           "Microsoft.NET.Test.Sdk": "17.1.0",
           "TodoApp.Data": "1.0.0",
           "TodoApp.Domain": "1.0.0",
@@ -74,15 +75,15 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/6.0.21": {},
-      "Microsoft.EntityFrameworkCore.Relational/6.0.12": {
+      "Microsoft.EntityFrameworkCore.Relational/6.0.21": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.21",
           "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "6.0.12.0",
-            "fileVersion": "6.0.1222.56411"
+            "assemblyVersion": "6.0.21.0",
+            "fileVersion": "6.0.2123.36206"
           }
         }
       },
@@ -546,7 +547,7 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.21",
           "Microsoft.EntityFrameworkCore.Abstractions": "6.0.21",
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.12",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.21",
           "Npgsql": "6.0.8"
         },
         "runtime": {
@@ -1268,6 +1269,7 @@
       "TodoApp.Data/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.21",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.21",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.8",
           "TodoApp.Domain": "1.0.0",
           "TodoApp.Shared": "1.0.0"
@@ -1277,11 +1279,17 @@
         }
       },
       "TodoApp.Domain/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.21"
+        },
         "runtime": {
           "TodoApp.Domain.dll": {}
         }
       },
       "TodoApp.Shared/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.21"
+        },
         "runtime": {
           "TodoApp.Shared.dll": {}
         }
@@ -1336,12 +1344,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/6.0.21",
       "hashPath": "microsoft.entityframeworkcore.analyzers.6.0.21.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/6.0.12": {
+    "Microsoft.EntityFrameworkCore.Relational/6.0.21": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HBtRGHtF0Vf+BIQTkRGiopmE5rLYhj59xPpd17S1tLgYpiHDVbepCuHwh5H63fzjO99Z4tW5wmmEGF7KnD91WQ==",
-      "path": "microsoft.entityframeworkcore.relational/6.0.12",
-      "hashPath": "microsoft.entityframeworkcore.relational.6.0.12.nupkg.sha512"
+      "sha512": "sha512-Ev5FM2KpXJu7+Dm9qvLf1FhSJMytrhSXho92Vompmgeiz3p4InldluidmKKmv8nZQAjs9dTCUUyvk1pxQjysaQ==",
+      "path": "microsoft.entityframeworkcore.relational/6.0.21",
+      "hashPath": "microsoft.entityframeworkcore.relational.6.0.21.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/6.0.0": {
       "type": "package",

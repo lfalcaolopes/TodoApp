@@ -17,10 +17,10 @@ public class TodoTaskRepository : ITodoTaskRepository
     {
         var todoTaskToCreate = todoTask;
 
-        await _context.TodoTasks.AddAsync(todoTaskToCreate);
+        var createdTodoTask = await _context.TodoTasks.AddAsync(todoTaskToCreate);
         await _context.SaveChangesAsync();
 
-        return todoTaskToCreate;
+        return createdTodoTask.Entity;
     }
 
     public async Task<TodoTask> DeleteAsync(TodoTask todoTask)

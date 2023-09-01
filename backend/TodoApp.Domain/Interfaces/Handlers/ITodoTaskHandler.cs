@@ -8,7 +8,7 @@ public interface ITodoTaskHandler
 {
    Task<CommandResult> HandleAsync(CreateTodoTaskDto command);
    Task<CommandResult> HandleAsync(GetByIdTodoTaskDto command);
-   Task<CommandResult> HandleAsync(GetAllCategoriesDto command);
-   Task<CommandResult> HandleAsync(UpdateTodoTaskDto command);
+   Task<CommandResult> HandleAsync(GetAllTodoTaskDto command);
+   Task<CommandResult> HandleAsync(UpdateTodoTaskDto command, int id);
    Task<CommandResult> HandleAsync(DeleteTodoTaskDto command);
 }
