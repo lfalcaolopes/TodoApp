@@ -7,6 +7,6 @@ public interface ICategoryHandler
 {
    Task<CommandResult> HandleAsync(CreateCategoryDto command);
    Task<CommandResult> HandleAsync(GetAllCategoriesDto command);
-   Task<CommandResult> HandleAsync(UpdateCategoryDto command);
+   Task<CommandResult> HandleAsync(UpdateCategoryDto command, int categoryId);
    Task<CommandResult> HandleAsync(DeleteCategoryDto command);
 }

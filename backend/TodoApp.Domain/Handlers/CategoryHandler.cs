@@ -43,11 +43,11 @@ public class CategoryHandler : ICategoryHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(UpdateCategoryDto command)
+    public async Task<CommandResult> HandleAsync(UpdateCategoryDto command, int categoryId)
     {
         try
         {
-            var categoryToUpdate = await _repository.GetByIdAsync(command.Id);
+            var categoryToUpdate = await _repository.GetByIdAsync(categoryId);
 
             categoryToUpdate.Name = command.Name ?? categoryToUpdate.Name;
             categoryToUpdate.Color = command.Color ?? categoryToUpdate.Color;
