@@ -1,14 +1,14 @@
-﻿using TodoApp.Domain.Commands.Category;
-using TodoApp.Domain.Commands.TodoTask;
+﻿using TodoApp.Domain.DTOs.Category;
+using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Interfaces.Results;
 
 namespace TodoApp.Domain.Interfaces.Handlers;
 
 public interface ITodoTaskHandler
 {
-   Task<CommandResult> HandleAsync(CreateTodoTaskDTO command);
-   Task<CommandResult> HandleAsync(GetByIdTodoTaskDTO command);
-   Task<CommandResult> HandleAsync(GetAllCategoriesDTO command);
-   Task<CommandResult> HandleAsync(UpdateTodoTaskDTO command);
-   Task<CommandResult> HandleAsync(DeleteTodoTaskDTO command);
+   Task<CommandResult> HandleAsync(CreateTodoTaskDto command);
+   Task<CommandResult> HandleAsync(GetByIdTodoTaskDto command);
+   Task<CommandResult> HandleAsync(GetAllCategoriesDto command);
+   Task<CommandResult> HandleAsync(UpdateTodoTaskDto command);
+   Task<CommandResult> HandleAsync(DeleteTodoTaskDto command);
 }

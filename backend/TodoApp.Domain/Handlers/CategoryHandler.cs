@@ -1,5 +1,4 @@
-﻿using TodoApp.Domain.Commands;
-using TodoApp.Domain.Commands.Category;
+﻿using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Results;
@@ -16,7 +15,7 @@ public class CategoryHandler : ICategoryHandler
         _repository = repository;
     }
 
-    public async Task<CommandResult> HandleAsync(CreateCategoryDTO command)
+    public async Task<CommandResult> HandleAsync(CreateCategoryDto command)
     {
         try
         {
@@ -30,7 +29,7 @@ public class CategoryHandler : ICategoryHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(GetAllCategoriesDTO command)
+    public async Task<CommandResult> HandleAsync(GetAllCategoriesDto command)
     {
         try
         {
@@ -44,7 +43,7 @@ public class CategoryHandler : ICategoryHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(UpdateCategoryDTO command)
+    public async Task<CommandResult> HandleAsync(UpdateCategoryDto command)
     {
         try
         {
@@ -63,7 +62,7 @@ public class CategoryHandler : ICategoryHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(DeleteCategoryDTO command)
+    public async Task<CommandResult> HandleAsync(DeleteCategoryDto command)
     {
         try
         {

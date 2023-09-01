@@ -1,12 +1,12 @@
-﻿namespace TodoApp.Domain.Commands.Category;
+﻿namespace TodoApp.Domain.DTOs.Category;
 
-public class UpdateCategoryDTO
+public class UpdateCategoryDto
 {
     public int Id { get; set; }
     public string? Name { get; set; }
     public string? Color { get; set; }
     
-    public UpdateCategoryDTO(int id, string? name, string? color)
+    public UpdateCategoryDto(int id, string? name, string? color)
     {
         Id = id;
         Name = name;

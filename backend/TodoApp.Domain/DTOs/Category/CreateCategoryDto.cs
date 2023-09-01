@@ -1,11 +1,11 @@
-﻿namespace TodoApp.Domain.Commands.Category;
+﻿namespace TodoApp.Domain.DTOs.Category;
 
-public class CreateCategoryDTO
+public class CreateCategoryDto
 {
     public string Name { get; set; }
     public string Color { get; set; }
     
-    public CreateCategoryDTO(string name, string color)
+    public CreateCategoryDto(string name, string color)
     {
         Name = name;
         Color = color;

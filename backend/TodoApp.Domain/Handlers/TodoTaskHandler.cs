@@ -1,5 +1,5 @@
-﻿using TodoApp.Domain.Commands.Category;
-using TodoApp.Domain.Commands.TodoTask;
+﻿using TodoApp.Domain.DTOs.Category;
+using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Results;
@@ -16,7 +16,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         _repository = repository;
     }
     
-    public async Task<CommandResult> HandleAsync(CreateTodoTaskDTO command)
+    public async Task<CommandResult> HandleAsync(CreateTodoTaskDto command)
     {
         try
         {
@@ -30,7 +30,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(GetByIdTodoTaskDTO command)
+    public async Task<CommandResult> HandleAsync(GetByIdTodoTaskDto command)
     {
         try
         {
@@ -44,7 +44,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(GetAllCategoriesDTO command)
+    public async Task<CommandResult> HandleAsync(GetAllCategoriesDto command)
     {
         try
         {
@@ -58,7 +58,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(UpdateTodoTaskDTO command)
+    public async Task<CommandResult> HandleAsync(UpdateTodoTaskDto command)
     {
         try
         {
@@ -77,7 +77,7 @@ public class TodoTaskHandler : ITodoTaskHandler
         }
     }
 
-    public async Task<CommandResult> HandleAsync(DeleteTodoTaskDTO command)
+    public async Task<CommandResult> HandleAsync(DeleteTodoTaskDto command)
     {
         try
         {

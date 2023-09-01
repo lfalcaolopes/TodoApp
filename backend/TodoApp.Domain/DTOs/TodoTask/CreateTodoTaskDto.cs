@@ -1,12 +1,12 @@
-﻿namespace TodoApp.Domain.Commands.TodoTask;
+﻿namespace TodoApp.Domain.DTOs.TodoTask;
 
-public class CreateTodoTaskDTO
+public class CreateTodoTaskDto
 {
     public string Name { get; set; }
     public DateTime DueDate { get; set; }
     public int CategoryId { get; set; }
     
-    public CreateTodoTaskDTO(string name, DateTime dueDate, int categoryId)
+    public CreateTodoTaskDto(string name, DateTime dueDate, int categoryId)
     {
         Name = name;
         DueDate = dueDate;
