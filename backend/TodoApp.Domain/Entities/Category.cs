@@ -7,8 +7,9 @@ public class Category
     public string Color { get; set; }
     public virtual IEnumerable<TodoTask>? TodoTasks { get; set; }
 
-    public Category(string name, string color)
+    public Category(int id, string name, string color)
     {
+        Id = id;
         Name = name;
         Color = color;
     }

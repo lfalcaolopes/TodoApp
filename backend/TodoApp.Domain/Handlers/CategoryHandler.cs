@@ -19,8 +19,8 @@ public class CategoryHandler : ICategoryHandler
     {
         try
         {
-            var categoryToCreate = await _repository.CreateAsync(new Category(command.Name, command.Color));
-
+            var categoryToCreate = await _repository.CreateAsync(new Category(0, command.Name, command.Color));
+            
             return new CommandResult(true, "Category created successfully", categoryToCreate);
         }
         catch (Exception ex)
@@ -34,7 +34,7 @@ public class CategoryHandler : ICategoryHandler
         try
         {
             var categories = await _repository.GetAllAsync();
-
+            
             return new CommandResult(true, "Categories retrieved successfully", categories);
         }
         catch (Exception ex)
@@ -47,12 +47,9 @@ public class CategoryHandler : ICategoryHandler
     {
         try
         {
-            var categoryToUpdate = await _repository.GetByIdAsync(categoryId);
+            command.Id = categoryId;
 
-            categoryToUpdate.Name = command.Name ?? categoryToUpdate.Name;
-            categoryToUpdate.Color = command.Color ?? categoryToUpdate.Color;
-
-            var categoryUpdated = await _repository.UpdateAsync(categoryToUpdate);
+            var categoryUpdated = await _repository.UpdateAsync(command);
 
             return new CommandResult(true, "Category updated successfully", categoryUpdated);
         }

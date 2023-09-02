@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
+using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Repositories;
 
@@ -51,15 +52,15 @@ public class CategoryRepository : ICategoryRepository
         return categoryToGet;
     }
 
-    public async Task<Category> UpdateAsync(Category category)
+    public async Task<Category> UpdateAsync(UpdateCategoryDto category)
     {
         var categoryToUpdate = _context.Categories.Find(category.Id);
 
         if (categoryToUpdate == null)
             throw new Exception("Category to update not found");
 
-        categoryToUpdate.Name = category.Name;
-        categoryToUpdate.Color = category.Color;
+        categoryToUpdate.Name = category.Name ?? categoryToUpdate.Name;
+        categoryToUpdate.Color = category.Color ?? categoryToUpdate.Color;
 
         await _context.SaveChangesAsync();
 

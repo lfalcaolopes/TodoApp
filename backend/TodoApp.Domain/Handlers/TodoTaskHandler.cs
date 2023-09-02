@@ -20,7 +20,9 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(command.Name, command.DueDate, command.CategoryId));
+            var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(0, command.Name, command.DueDate, command.CategoryId));
+            
+            
             
             return new CommandResult(true, "TodoTask created successfully", todoTaskToCreate);
         }
@@ -62,12 +64,8 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTaskToUpdate = await _repository.GetByIdAsync(todoTaskId);
-
-            todoTaskToUpdate.Name = command.Name ?? todoTaskToUpdate.Name;
-            todoTaskToUpdate.DueDate = command.DueDate ?? todoTaskToUpdate.DueDate;
-
-            var todoTaskUpdated = await _repository.UpdateAsync(todoTaskToUpdate);
+            command.Id = todoTaskId;
+            var todoTaskUpdated = await _repository.UpdateAsync(command);
             
             return new CommandResult(true, "TodoTask updated successfully", todoTaskUpdated);
         }

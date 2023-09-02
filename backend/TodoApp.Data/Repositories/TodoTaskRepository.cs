@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
+using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Repositories;
 
@@ -51,16 +52,16 @@ public class TodoTaskRepository : ITodoTaskRepository
         return todoTaskToGet;
     }
 
-    public async Task<TodoTask> UpdateAsync(TodoTask todoTask)
+    public async Task<TodoTask> UpdateAsync(UpdateTodoTaskDto todoTask)
     {
         var todoTaskToUpdate = _context.TodoTasks.Find(todoTask.Id);
 
         if (todoTaskToUpdate == null)
             throw new Exception("TodoTask to update not found");
 
-        todoTaskToUpdate.Name = todoTask.Name;
-        todoTaskToUpdate.DueDate = todoTask.DueDate;
-        todoTaskToUpdate.Category = todoTask.Category;
+        todoTaskToUpdate.Name = todoTask.Name ?? todoTaskToUpdate.Name;
+        todoTaskToUpdate.DueDate = todoTask.DueDate ?? todoTaskToUpdate.DueDate;
+        todoTaskToUpdate.IsComplete = todoTask.IsComplete ?? todoTaskToUpdate.IsComplete;
 
         await _context.SaveChangesAsync();
 
