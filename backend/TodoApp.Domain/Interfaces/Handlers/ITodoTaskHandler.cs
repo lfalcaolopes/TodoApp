@@ -11,4 +11,6 @@ public interface ITodoTaskHandler
    Task<CommandResult> HandleAsync(GetAllTodoTaskDto command);
    Task<CommandResult> HandleAsync(UpdateTodoTaskDto command, int id);
    Task<CommandResult> HandleAsync(DeleteTodoTaskDto command);
+   Task<CommandResult> HandleAsync(MarkAsDoneTodoTaskDto command);
+   Task<CommandResult> HandleAsync(MarkAsUndoneTodoTaskDto command);
 }

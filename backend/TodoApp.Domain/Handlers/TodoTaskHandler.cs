@@ -1,5 +1,4 @@
-﻿using TodoApp.Domain.DTOs.Category;
-using TodoApp.Domain.DTOs.TodoTask;
+﻿using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Results;
@@ -79,9 +78,7 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTaskToDelete = await _repository.GetByIdAsync(command.Id);
-            
-            var todoTaskDeleted = await _repository.DeleteAsync(todoTaskToDelete);
+            var todoTaskDeleted = await _repository.DeleteAsync(command);
             
             return new CommandResult(true, "TodoTask deleted successfully", todoTaskDeleted);
         }

@@ -9,5 +9,5 @@ public interface ITodoTaskRepository
     Task<TodoTask> GetByIdAsync(int id);
     Task<TodoTask> CreateAsync(TodoTask todoTask);
     Task<TodoTask> UpdateAsync(UpdateTodoTaskDto todoTask);
-    Task<TodoTask> DeleteAsync(TodoTask todoTask);
+    Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask);
 }

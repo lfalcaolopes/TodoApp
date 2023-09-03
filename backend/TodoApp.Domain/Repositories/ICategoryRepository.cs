@@ -1,5 +1,6 @@
 
 using TodoApp.Domain.DTOs.Category;
+using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 
 namespace TodoApp.Domain.Repositories;
@@ -10,5 +11,5 @@ public interface ICategoryRepository
     Task<Category> GetByIdAsync(int id);
     Task<Category> CreateAsync(Category category);
     Task<Category> UpdateAsync(UpdateCategoryDto category);
-    Task<Category> DeleteAsync(Category category);
+    Task<Category> DeleteAsync(DeleteCategoryDto category);
 }

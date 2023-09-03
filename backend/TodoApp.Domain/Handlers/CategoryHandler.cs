@@ -63,8 +63,7 @@ public class CategoryHandler : ICategoryHandler
     {
         try
         {
-            var categoryToDelete = await _repository.GetByIdAsync(command.Id);
-            var categoryDeleted = await _repository.DeleteAsync(categoryToDelete);
+            var categoryDeleted = await _repository.DeleteAsync(command);
 
             return new CommandResult(true, "Category deleted successfully", categoryDeleted);
         }

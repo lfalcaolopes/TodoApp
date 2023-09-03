@@ -24,7 +24,7 @@ public class CategoryRepository : ICategoryRepository
         return categoryToCreate;
     }
 
-    public async Task<Category> DeleteAsync(Category category)
+    public async Task<Category> DeleteAsync(DeleteCategoryDto category)
     {
         var categoryToDelete = _context.Categories.Find(category.Id);
 

@@ -24,7 +24,7 @@ public class TodoTaskRepository : ITodoTaskRepository
         return createdTodoTask.Entity;
     }
 
-    public async Task<TodoTask> DeleteAsync(TodoTask todoTask)
+    public async Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask)
     {
         var todoTaskToDelete = _context.TodoTasks.Find(todoTask.Id);
 
@@ -45,7 +45,7 @@ public class TodoTaskRepository : ITodoTaskRepository
     public async Task<TodoTask> GetByIdAsync(int id)
     {
         var todoTaskToGet = await _context.TodoTasks.FindAsync(id);
-
+        
         if (todoTaskToGet == null)
             throw new Exception("TodoTask to get not found");
 
