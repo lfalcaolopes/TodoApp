@@ -87,4 +87,36 @@ public class TodoTaskHandler : ITodoTaskHandler
             return new CommandResult(false, ex.Message, null);
         }
     }
+
+    public async Task<CommandResult> HandleAsync(MarkAsDoneTodoTaskDto command)
+    {
+        try
+        {
+            var todoTaskToMarkAsDone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
+            
+            var completedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsDone);
+            
+            return new CommandResult(true, "TodoTask marked as done successfully", completedTodoTask);
+        }
+        catch (Exception ex)
+        {
+            return new CommandResult(false, ex.Message, null);
+        }
+    }
+
+    public async Task<CommandResult> HandleAsync(MarkAsUndoneTodoTaskDto command)
+    {
+        try
+        {
+            var todoTaskToMarkAsUndone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
+            
+            var uncompletedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsUndone);
+            
+            return new CommandResult(true, "TodoTask marked as undone successfully", uncompletedTodoTask);
+        }
+        catch (Exception ex)
+        {
+            return new CommandResult(false, ex.Message, null);
+        }
+    }
 }

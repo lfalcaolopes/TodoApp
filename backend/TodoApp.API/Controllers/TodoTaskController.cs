@@ -59,4 +59,19 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
+    [HttpPatch("{id}/mark-as-done")]
+    public async Task<CommandResult> MarkAsDone([FromRoute] int id)
+    {
+        var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
+        var result = await handler.HandleAsync(new MarkAsDoneTodoTaskDto(id));
+        return result;
+    }
+    
+    [HttpPatch("{id}/mark-as-undone")]
+    public async Task<CommandResult> MarkAsUndone([FromRoute] int id)
+    {
+        var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
+        var result = await handler.HandleAsync(new MarkAsUndoneTodoTaskDto(id));
+        return result;
+    }
 }
