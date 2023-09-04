@@ -34,6 +34,15 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
+    [HttpGet("search")]
+    public async Task<CommandResult> Search([FromQuery] SearchTodoTaskDto command)
+    {
+        var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
+        
+        var result = await handler.HandleAsync(command);
+        return result;
+    }
+    
     [HttpPost]
     public async Task<CommandResult> Post([FromBody] CreateTodoTaskDto command)
     {

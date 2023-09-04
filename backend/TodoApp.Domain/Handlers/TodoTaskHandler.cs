@@ -1,8 +1,10 @@
-﻿using TodoApp.Domain.DTOs.TodoTask;
+﻿using System.Linq.Expressions;
+using Microsoft.VisualBasic;
+using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Results;
-using TodoApp.Domain.Repositories;
+using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Domain.Handlers;
 
@@ -35,7 +37,7 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTask = await _repository.GetByIdAsync(command.Id);
+            var todoTask = await _repository.GetAsync(command.Id);
             
             return new CommandResult(true, "TodoTask retrieved successfully", todoTask);
         }
@@ -49,7 +51,7 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
-            var todoTasks = await _repository.GetAllAsync();
+            var todoTasks = await _repository.GetAsync();
             
             return new CommandResult(true, "TodoTasks retrieved successfully", todoTasks);
         }
@@ -57,6 +59,39 @@ public class TodoTaskHandler : ITodoTaskHandler
         {
             return new CommandResult(false, ex.Message, null);
         }
+    }
+
+    public async Task<CommandResult> HandleAsync(SearchTodoTaskDto command)
+    {
+        try
+        {
+            if (command.CategoryId != null)
+            {
+                var todoTasks = await _repository.GetAsync(x => x.CategoryId == command.CategoryId);
+
+                return new CommandResult(true, "TodoTasks by category retrieved successfully", todoTasks);
+            }
+
+            if (command.IsComplete != null)
+            {
+                var todoTasks = await _repository.GetAsync(x => x.IsComplete == command.IsComplete);
+
+                return new CommandResult(true, "TodoTasks by completion retrieved successfully", todoTasks);
+            }
+
+            if (command.IsDueToday == true)
+            {
+                var todoTasks = await _repository.GetAsync(x => (x.DueDate.Date - DateTime.Today).TotalDays == 0);
+
+                return new CommandResult(true, "TodoTasks by due date retrieved successfully", todoTasks);
+            }
+        }
+        catch (Exception ex)
+        {
+            return new CommandResult(false, ex.Message, null);
+        }
+        
+        return new CommandResult(false, "Invalid search parameter", null);
     }
 
     public async Task<CommandResult> HandleAsync(UpdateTodoTaskDto command, int todoTaskId)

@@ -2,7 +2,7 @@
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Results;
-using TodoApp.Domain.Repositories;
+using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Domain.Handlers;
 
@@ -33,7 +33,7 @@ public class CategoryHandler : ICategoryHandler
     {
         try
         {
-            var categories = await _repository.GetAllAsync();
+            var categories = await _repository.GetAsync();
             
             return new CommandResult(true, "Categories retrieved successfully", categories);
         }

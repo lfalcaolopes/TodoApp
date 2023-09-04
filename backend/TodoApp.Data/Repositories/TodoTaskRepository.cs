@@ -1,8 +1,9 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
-using TodoApp.Domain.Repositories;
+using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Data.Repositories;
 
@@ -14,6 +15,8 @@ public class TodoTaskRepository : ITodoTaskRepository
     {
         _context = context;
     }
+
+
     public async Task<TodoTask> CreateAsync(TodoTask todoTask)
     {
         var todoTaskToCreate = todoTask;
@@ -22,34 +25,6 @@ public class TodoTaskRepository : ITodoTaskRepository
         await _context.SaveChangesAsync();
 
         return createdTodoTask.Entity;
-    }
-
-    public async Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask)
-    {
-        var todoTaskToDelete = _context.TodoTasks.Find(todoTask.Id);
-
-        if (todoTaskToDelete == null)
-            throw new Exception("TodoTask to delete not found");
-
-        _context.TodoTasks.Remove(todoTaskToDelete);
-        await _context.SaveChangesAsync();
-
-        return todoTaskToDelete;
-    }
-
-    public async Task<IEnumerable<TodoTask>> GetAllAsync()
-    {
-        return await _context.TodoTasks.ToListAsync();
-    }
-
-    public async Task<TodoTask> GetByIdAsync(int id)
-    {
-        var todoTaskToGet = await _context.TodoTasks.FindAsync(id);
-        
-        if (todoTaskToGet == null)
-            throw new Exception("TodoTask to get not found");
-
-        return todoTaskToGet;
     }
 
     public async Task<TodoTask> UpdateAsync(UpdateTodoTaskDto todoTask)
@@ -67,4 +42,43 @@ public class TodoTaskRepository : ITodoTaskRepository
 
         return todoTaskToUpdate;
     }
+    
+    public async Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask)
+    {
+        var todoTaskToDelete = _context.TodoTasks.Find(todoTask.Id);
+
+        if (todoTaskToDelete == null)
+            throw new Exception("TodoTask to delete not found");
+
+        _context.TodoTasks.Remove(todoTaskToDelete);
+        await _context.SaveChangesAsync();
+
+        return todoTaskToDelete;
+    }
+
+    public async Task<IEnumerable<TodoTask>> GetAsync()
+    {
+        return await _context.TodoTasks.ToListAsync();
+    }
+
+    public async Task<TodoTask> GetAsync(int id)
+    {
+        var todoTaskToGet = await _context.TodoTasks.FindAsync(id);
+        
+        if (todoTaskToGet == null)
+            throw new Exception("TodoTask to get not found");
+
+        return todoTaskToGet;
+    }
+    
+    public async Task<IEnumerable<TodoTask>> GetAsync(Expression<Func<TodoTask, bool>> lambda)
+    {
+        var todoTaskToGet = await _context.TodoTasks.Where(lambda).ToListAsync();
+        
+        if (todoTaskToGet == null)
+            throw new Exception("TodoTask to get dynamically not found");
+
+        return todoTaskToGet;
+    }
+
 }

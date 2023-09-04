@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Entities;
-using TodoApp.Domain.Repositories;
+using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Data.Repositories;
 
@@ -37,12 +37,12 @@ public class CategoryRepository : ICategoryRepository
         return categoryToDelete;
     }
 
-    public async Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IEnumerable<Category>> GetAsync()
     {
         return await _context.Categories.ToListAsync();
     }
 
-    public async Task<Category> GetByIdAsync(int id)
+    public async Task<Category> GetAsync(int id)
     {
         var categoryToGet = await _context.Categories.FindAsync(id);
 
