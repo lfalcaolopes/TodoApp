@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Data.Context;
 using TodoApp.Data.Repositories;
+using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Handlers;
-using TodoApp.Domain.Interfaces.Results;
 
 namespace TodoApp.API.Controllers;
 
@@ -19,7 +19,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<CommandResult> Get()
+    public async Task<ResponseDto> Get()
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(new GetAllTodoTaskDto());
@@ -27,7 +27,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public async Task<CommandResult> Get([FromRoute] int id)
+    public async Task<ResponseDto> Get([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(new GetByIdTodoTaskDto(id));
@@ -35,7 +35,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpGet("search")]
-    public async Task<CommandResult> Search([FromQuery] SearchTodoTaskDto command)
+    public async Task<ResponseDto> Search([FromQuery] SearchTodoTaskDto command)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         
@@ -44,7 +44,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<CommandResult> Post([FromBody] CreateTodoTaskDto command)
+    public async Task<ResponseDto> Post([FromBody] CreateTodoTaskDto command)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         
@@ -53,7 +53,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public async Task<CommandResult> Put([FromBody] UpdateTodoTaskDto command, [FromRoute] int id)
+    public async Task<ResponseDto> Put([FromBody] UpdateTodoTaskDto command, [FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(command, id);
@@ -61,7 +61,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public async Task<CommandResult> Delete([FromRoute] int id)
+    public async Task<ResponseDto> Delete([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(new DeleteTodoTaskDto(id));
@@ -69,7 +69,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpPatch("{id}/mark-as-done")]
-    public async Task<CommandResult> MarkAsDone([FromRoute] int id)
+    public async Task<ResponseDto> MarkAsDone([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(new MarkAsDoneTodoTaskDto(id));
@@ -77,7 +77,7 @@ public class TodoTaskController : ControllerBase
     }
     
     [HttpPatch("{id}/mark-as-undone")]
-    public async Task<CommandResult> MarkAsUndone([FromRoute] int id)
+    public async Task<ResponseDto> MarkAsUndone([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(new MarkAsUndoneTodoTaskDto(id));

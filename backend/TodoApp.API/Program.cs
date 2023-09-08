@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
+using TodoApp.Domain.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,16 @@ builder.Services.AddSwaggerGen();
 // Setup database connection
 builder.Services.AddDbContext<TodoDataContext>(options =>
     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddMvcCore().ConfigureApiBehaviorOptions(options => {
+            options.InvalidModelStateResponseFactory = (errorContext) =>
+            {
+                var errors = errorContext.ModelState.Values.SelectMany(e => e.Errors.Select(m => m.ErrorMessage)).ToList();
+
+                var result = new ResponseDto(false, errors);
+                return new BadRequestObjectResult(result);
+            };
+        });
 
 
 var app = builder.Build();

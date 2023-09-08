@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Data.Context;
 using TodoApp.Data.Repositories;
+using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Handlers;
-using TodoApp.Domain.Interfaces.Results;
 
 namespace TodoApp.API.Controllers;
 
@@ -19,7 +19,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<CommandResult> Get()
+    public async Task<ResponseDto> Get()
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
         var result = await handler.HandleAsync(new GetAllCategoriesDto());
@@ -27,7 +27,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<CommandResult> Post([FromBody] CreateCategoryDto command)
+    public async Task<ResponseDto> Post([FromBody] CreateCategoryDto command)
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
         var result = await handler.HandleAsync(command);
@@ -35,7 +35,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpPut("{id}")]
-    public async Task<CommandResult> Put([FromBody] UpdateCategoryDto command, [FromRoute] int id)
+    public async Task<ResponseDto> Put([FromBody] UpdateCategoryDto command, [FromRoute] int id)
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
         var result = await handler.HandleAsync(command, id);
@@ -43,7 +43,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public async Task<CommandResult> Delete([FromRoute] int id)
+    public async Task<ResponseDto> Delete([FromRoute] int id)
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
         var result = await handler.HandleAsync(new DeleteCategoryDto(id));

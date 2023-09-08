@@ -1,7 +1,7 @@
-﻿using TodoApp.Domain.DTOs.Category;
+﻿using TodoApp.Domain.DTOs;
+using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Interfaces.Handlers;
-using TodoApp.Domain.Interfaces.Results;
 using TodoApp.Domain.Interfaces.Repositories;
 
 namespace TodoApp.Domain.Handlers;
@@ -15,35 +15,35 @@ public class CategoryHandler : ICategoryHandler
         _repository = repository;
     }
 
-    public async Task<CommandResult> HandleAsync(CreateCategoryDto command)
+    public async Task<ResponseDto> HandleAsync(CreateCategoryDto command)
     {
         try
         {
             var categoryToCreate = await _repository.CreateAsync(new Category(0, command.Name, command.Color));
-            
-            return new CommandResult(true, "Category created successfully", categoryToCreate);
+
+            return new ResponseDto(true, new[] { categoryToCreate });
         }
         catch (Exception ex)
         {
-            return new CommandResult(false, ex.Message, null);
+            return new ResponseDto(false, new[] { ex.Message });
         }
     }
 
-    public async Task<CommandResult> HandleAsync(GetAllCategoriesDto command)
+    public async Task<ResponseDto> HandleAsync(GetAllCategoriesDto command)
     {
         try
         {
             var categories = await _repository.GetAsync();
-            
-            return new CommandResult(true, "Categories retrieved successfully", categories);
+
+            return new ResponseDto(true, categories);
         }
         catch (Exception ex)
         {
-            return new CommandResult(false, ex.Message, null);
+            return new ResponseDto(false, new[] { ex.Message });
         }
     }
 
-    public async Task<CommandResult> HandleAsync(UpdateCategoryDto command, int categoryId)
+    public async Task<ResponseDto> HandleAsync(UpdateCategoryDto command, int categoryId)
     {
         try
         {
@@ -51,25 +51,25 @@ public class CategoryHandler : ICategoryHandler
 
             var categoryUpdated = await _repository.UpdateAsync(command);
 
-            return new CommandResult(true, "Category updated successfully", categoryUpdated);
+            return new ResponseDto(true, new[] { categoryUpdated });
         }
         catch (Exception ex)
         {
-            return new CommandResult(false, ex.Message, null);
+            return new ResponseDto(false, new[] { ex.Message });
         }
     }
 
-    public async Task<CommandResult> HandleAsync(DeleteCategoryDto command)
+    public async Task<ResponseDto> HandleAsync(DeleteCategoryDto command)
     {
         try
         {
             var categoryDeleted = await _repository.DeleteAsync(command);
 
-            return new CommandResult(true, "Category deleted successfully", categoryDeleted);
+            return new ResponseDto(true, new[] { categoryDeleted });
         }
         catch (Exception ex)
         {
-            return new CommandResult(false, ex.Message, null);
+            return new ResponseDto(false, new[] { ex.Message });
         }
     }
 }

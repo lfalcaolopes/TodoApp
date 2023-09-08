@@ -1,12 +1,12 @@
-﻿using TodoApp.Domain.DTOs.Category;
-using TodoApp.Domain.Interfaces.Results;
+﻿using TodoApp.Domain.DTOs;
+using TodoApp.Domain.DTOs.Category;
 
 namespace TodoApp.Domain.Interfaces.Handlers;
 
 public interface ICategoryHandler
 {
-   Task<CommandResult> HandleAsync(CreateCategoryDto command);
-   Task<CommandResult> HandleAsync(GetAllCategoriesDto command);
-   Task<CommandResult> HandleAsync(UpdateCategoryDto command, int categoryId);
-   Task<CommandResult> HandleAsync(DeleteCategoryDto command);
+   Task<ResponseDto> HandleAsync(CreateCategoryDto command);
+   Task<ResponseDto> HandleAsync(GetAllCategoriesDto command);
+   Task<ResponseDto> HandleAsync(UpdateCategoryDto command, int categoryId);
+   Task<ResponseDto> HandleAsync(DeleteCategoryDto command);
 }

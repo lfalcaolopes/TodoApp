@@ -75,7 +75,7 @@ public class TodoTaskRepository : ITodoTaskRepository
     {
         var todoTaskToGet = await _context.TodoTasks.Where(lambda).ToListAsync();
         
-        if (todoTaskToGet == null)
+        if (todoTaskToGet.Count == 0)
             throw new Exception("TodoTask to get dynamically not found");
 
         return todoTaskToGet;
