@@ -9,6 +9,7 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle/>
 
+      <p>Hello World</p>
     </ThemeProvider>
   )
 }
