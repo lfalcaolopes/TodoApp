@@ -26,7 +26,7 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ResponseDto> Get([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
@@ -52,7 +52,7 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<ResponseDto> Put([FromBody] UpdateTodoTaskDto command, [FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
@@ -60,7 +60,7 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<ResponseDto> Delete([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
@@ -68,7 +68,7 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
-    [HttpPatch("{id}/mark-as-done")]
+    [HttpPatch("{id:int}/mark-as-done")]
     public async Task<ResponseDto> MarkAsDone([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
@@ -76,7 +76,7 @@ public class TodoTaskController : ControllerBase
         return result;
     }
     
-    [HttpPatch("{id}/mark-as-undone")]
+    [HttpPatch("{id:int}/mark-as-undone")]
     public async Task<ResponseDto> MarkAsUndone([FromRoute] int id)
     {
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));

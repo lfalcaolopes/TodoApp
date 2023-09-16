@@ -34,7 +34,7 @@ public class CategoryController : ControllerBase
         return result;
     }
     
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<ResponseDto> Put([FromBody] UpdateCategoryDto command, [FromRoute] int id)
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
@@ -42,7 +42,7 @@ public class CategoryController : ControllerBase
         return result;
     }
     
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<ResponseDto> Delete([FromRoute] int id)
     {
         var handler = new CategoryHandler(new CategoryRepository(_context));
