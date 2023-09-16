@@ -16,17 +16,15 @@ public class CategoryRepository : ICategoryRepository
     }
     public async Task<Category> CreateAsync(Category category)
     {
-        var categoryToCreate = category;
-
-        await _context.Categories.AddAsync(categoryToCreate);
+        var createdCategory = await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
 
-        return categoryToCreate;
+        return createdCategory.Entity;
     }
 
     public async Task<Category> DeleteAsync(DeleteCategoryDto category)
     {
-        var categoryToDelete = _context.Categories.Find(category.Id);
+        var categoryToDelete = await _context.Categories.FindAsync(category.Id);
 
         if (categoryToDelete == null)
             throw new Exception("Category to delete not found");
@@ -54,7 +52,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<Category> UpdateAsync(UpdateCategoryDto category)
     {
-        var categoryToUpdate = _context.Categories.Find(category.Id);
+        var categoryToUpdate = await _context.Categories.FindAsync(category.Id);
 
         if (categoryToUpdate == null)
             throw new Exception("Category to update not found");

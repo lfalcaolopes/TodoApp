@@ -19,9 +19,7 @@ public class TodoTaskRepository : ITodoTaskRepository
 
     public async Task<TodoTask> CreateAsync(TodoTask todoTask)
     {
-        var todoTaskToCreate = todoTask;
-
-        var createdTodoTask = await _context.TodoTasks.AddAsync(todoTaskToCreate);
+        var createdTodoTask = await _context.TodoTasks.AddAsync(todoTask);
         await _context.SaveChangesAsync();
 
         return createdTodoTask.Entity;
@@ -29,7 +27,7 @@ public class TodoTaskRepository : ITodoTaskRepository
 
     public async Task<TodoTask> UpdateAsync(UpdateTodoTaskDto todoTask)
     {
-        var todoTaskToUpdate = _context.TodoTasks.Find(todoTask.Id);
+        var todoTaskToUpdate = await _context.TodoTasks.FindAsync(todoTask.Id);
 
         if (todoTaskToUpdate == null)
             throw new Exception("TodoTask to update not found");
@@ -45,7 +43,7 @@ public class TodoTaskRepository : ITodoTaskRepository
     
     public async Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask)
     {
-        var todoTaskToDelete = _context.TodoTasks.Find(todoTask.Id);
+        var todoTaskToDelete = await _context.TodoTasks.FindAsync(todoTask.Id);
 
         if (todoTaskToDelete == null)
             throw new Exception("TodoTask to delete not found");
