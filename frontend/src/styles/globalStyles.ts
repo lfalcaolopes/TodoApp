@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    background: ${(props) => props.theme.background};
+    background: ${(props) => props.theme.colors.background.toString()};
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
@@ -26,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
   body, input, button {
     font-family: "Nunito", sans-serif;
     font-weight: 500;
-    font-size: ${(props) => props.theme.fontSizes.medium};
-    color: ${(props) => props.theme.primaryText};
+    font-size: ${(props) => props.theme.fontSizes.medium.toString()};
+    color: ${(props) => props.theme.colors.primaryText.toString()};
   }
   
   button {
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
   
   :focus{
     outline: 0;
-    box-shadow: 0 0 0 2px ${( props ) => props.theme.accent};
+    box-shadow: 0 0 0 2px ${( props ) => props.theme.colors.accent.toString()};
   }
 `;
 

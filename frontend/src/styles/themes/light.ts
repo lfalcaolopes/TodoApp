@@ -1,5 +1,7 @@
-export const lightTheme = {
-  colorScheme: {
+import {ThemeType} from "./ThemeType.ts";
+
+export const lightTheme : ThemeType = {
+  colors: {
     background: "#FAFBFF",
 
     primaryCard: "#F5F8FF",
@@ -19,4 +21,4 @@ export const lightTheme = {
     large: "1.5rem",   // 24px
     xLarge: "2.5rem",  // 40px
   },
-} as const;
+}

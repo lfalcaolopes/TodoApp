@@ -1,5 +1,7 @@
-export const darkTheme = {
-  colorScheme: {
+import {ThemeType} from "./ThemeType.ts";
+
+export const darkTheme : ThemeType = {
+  colors: {
     background: "#2C3145",
 
     primaryCard: "#44495F",
@@ -18,4 +20,4 @@ export const darkTheme = {
     large: "1.5rem",   // 24px
     xLarge: "2.5rem",  // 40px
   },
-} as const;
+}
