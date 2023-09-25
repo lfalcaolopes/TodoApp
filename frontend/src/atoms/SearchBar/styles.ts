@@ -5,7 +5,8 @@ const Form = styled.form`
   border: none;
   padding: 0;
   border-radius: 0.5rem;
-  
+
+  flex: 1;
   display: flex;
   justify-content: space-between;
   
@@ -15,12 +16,12 @@ const Form = styled.form`
 const Input = styled.input`
   background-color: transparent;
   color: ${props => props.theme.colors.primaryText.toString()};
-  font-size: ${props => props.theme.fontSizes.small.toString()};
+  font-size: ${props => props.theme.fontSizes.medium.toString()};
 
   width: 100%;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5rem 3rem 0.5rem 0.5rem;
+  padding: 0.75rem 1rem;
 `;
 
 const Button = styled.button`
