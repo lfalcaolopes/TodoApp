@@ -20,7 +20,7 @@ const TodoTaskCard = ({todoTask, color}: TodoTaskProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <Styled.Container isOpen={isOpen}>
+    <Styled.Container>
       <Styled.TaskHeader>
 
         <Styled.TaskData>

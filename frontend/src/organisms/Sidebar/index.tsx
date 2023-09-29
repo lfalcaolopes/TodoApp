@@ -24,7 +24,7 @@ const Sidebar = (data: CategoriesData) => {
       
       {data.category.map((category) => {
         return (
-          <CategorySidebarItem categoryTitle={category.title} amount={category.total} color={category.color}/>
+          <CategorySidebarItem key={category.title} categoryTitle={category.title} amount={category.total} color={category.color}/>
         )
       })}
       

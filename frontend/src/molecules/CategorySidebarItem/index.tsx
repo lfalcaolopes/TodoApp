@@ -13,7 +13,7 @@ const CategorySidebarItem = ({categoryTitle, amount, color, children}: CategoryS
   return (
     <Styled.Container>
       <Styled.IconWrapper>
-        {children ? children : <Styled.CategoryIcon iconColor={color || ""} />}
+        {children ? children : <Styled.CategoryIcon color={color || ""} />}
         <Styled.Text>{categoryTitle}</Styled.Text>
       </Styled.IconWrapper>
       {amount !== undefined && <TaskAmountIndicator amount={amount}/>}

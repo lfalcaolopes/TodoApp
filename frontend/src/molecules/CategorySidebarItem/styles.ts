@@ -12,8 +12,8 @@ const IconWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const CategoryIcon = styled.div<{ iconColor: string }>`
-  background-color: ${({ iconColor }) => iconColor};
+const CategoryIcon = styled.div<{ color: string }>`
+  background-color: ${({ color }) => color};
   width: 20px;
   height: 20px;
   border-radius: 50%;

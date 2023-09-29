@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div<{isOpen: Boolean}>`
+const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryCard.toString()};
   border-radius: 0.5rem;
   

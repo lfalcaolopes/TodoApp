@@ -7,7 +7,7 @@ export interface ProgressBarProps {
 
 const ProgressBar = ({progress, color}: ProgressBarProps) => {
   return (
-    <Styled.Root value={progress} max={20}>
+    <Styled.Root value={progress} max={100}>
       <Styled.Indicator style={{ transform: `translateX(-${100 - progress}%)` }} color={color} />
     </Styled.Root>
   );
