@@ -3,12 +3,25 @@ using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs;
 
+var allowSpecificOrigins = "_allowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration Configuration = new ConfigurationBuilder()
          .SetBasePath(Directory.GetCurrentDirectory())
          .AddJsonFile("appsettings.json")
          .Build();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://127.0.0.1:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 // Add services to the container.
 
@@ -40,6 +53,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(allowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
