@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Button = styled.button`
   background-color: ${({theme}) => theme.colors.accent.toString()};
   color: ${({theme}) => theme.colors.accentText.toString()};
+  font-size: ${({theme}) => theme.fontSizes.small.toString()};
   letter-spacing: 0.1rem;
   
   border: none;

@@ -1,7 +1,6 @@
 import * as Styled from "./styles";
 import Sidebar from "../../organisms/Sidebar";
 import Header from "../../organisms/Header";
-import Categories from "../../organisms/Categories";
 import TodoTasks from "../../organisms/TodoTasks";
 
 const categoryData = [
@@ -58,7 +57,7 @@ const Home = () => {
       
       <Styled.Content>
         <Header />
-        <Categories category={categoryData}/>
+        {/*<Categories category={categoryData}/>*/}
         <TodoTasks todoTask={todoTaskData}/>
         
       </Styled.Content>

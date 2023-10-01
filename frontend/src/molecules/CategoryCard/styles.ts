@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Container = styled.div`
   background-color: ${({theme}) => theme.colors.primaryCard.toString()};
   
-  width: 10rem;
+  width: 15rem;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;

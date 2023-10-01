@@ -16,6 +16,7 @@ const CategoryIcon = styled.div<{ color: string }>`
   background-color: ${({ color }) => color};
   width: 20px;
   height: 20px;
+  margin: 2px;
   border-radius: 50%;
 `;
 

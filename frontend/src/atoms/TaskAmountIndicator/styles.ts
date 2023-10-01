@@ -6,7 +6,6 @@ const Container = styled.div`
   font-size: ${({theme}) => theme.fontSizes.small.toString()};
   
   display: flex;
-  align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
   

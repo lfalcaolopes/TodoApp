@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryCard.toString()};
+  line-height: 1rem;
   border-radius: 0.5rem;
   
   display: flex;
@@ -17,6 +18,12 @@ const TaskHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  > * {
+    &:last-child {
+      cursor: pointer;
+    }
+  }
 `;
 
 const TaskData = styled.div`

@@ -6,9 +6,10 @@ const Container = styled.div`
   
   &:after {
     position: absolute;
-    top: 1px;
+    top: 7px;
     right: 5px;
     content: "📅";
+    font-size: 20px;
     pointer-events: none;
   }
 `;

@@ -16,10 +16,10 @@ const Sidebar = (data: CategoriesData) => {
   return (
     <Styled.Container>
       <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={10}>
-        <House size={20} weight="bold"/>
+        <House size={24} weight="bold"/>
       </CategorySidebarItem>
       <CategorySidebarItem categoryTitle={"Para hoje"} amount={14}>
-        <CalendarBlank size={20} weight="bold"/>
+        <CalendarBlank size={24} weight="bold"/>
       </CategorySidebarItem>
       
       {data.category.map((category) => {
@@ -29,7 +29,7 @@ const Sidebar = (data: CategoriesData) => {
       })}
       
       <CategorySidebarItem categoryTitle={"Completos"} amount={0}>
-        <Check size={20} weight="bold"/>
+        <Check size={24} weight="bold"/>
       </CategorySidebarItem>
       
       <NewCategorySidebarItem/>

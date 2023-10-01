@@ -27,7 +27,7 @@ const TodoTaskCard = ({todoTask, color}: TodoTaskProps) => {
           <Checkbox color={color} checked={checked} setChecked={setChecked}/>
           <p>{todoTask.title}</p>
         </Styled.TaskData>
-        <DotsThreeOutlineVertical size={20} weight="fill" onClick={() => setIsOpen(prevState => !prevState)}/>
+        <DotsThreeOutlineVertical size={24} weight="fill" onClick={() => setIsOpen(prevState => !prevState)}/>
       </Styled.TaskHeader>
       {
         isOpen &&

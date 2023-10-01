@@ -12,24 +12,24 @@ const CategoryPicker = ({category}: {category: string}) => {
           {value}
         </Select.Value>
         <Styled.Icon asChild>
-          <CaretDown size={16} weight="bold" />
+          <CaretDown size={18} weight="bold" />
         </Styled.Icon>
       </Styled.Trigger>
 
       <Select.Portal>
         <Styled.Content position={"popper"} sideOffset={5}>
           <Styled.Viewport>
-            <Styled.Item value="inside">
+            <Styled.Item value="Trabalho">
               <Select.ItemText>Trabalho</Select.ItemText>
-              <Select.ItemIndicator><Check size={10} weight="bold" /></Select.ItemIndicator>
+              <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
             </Styled.Item>
-            <Styled.Item value="outsite">
+            <Styled.Item value="Estudos">
               <Select.ItemText>Estudos</Select.ItemText>
-              <Select.ItemIndicator><Check size={10} weight="bold" /></Select.ItemIndicator>
+              <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
             </Styled.Item>
-            <Styled.Item value="teste">
+            <Styled.Item value="Pessoal">
               <Select.ItemText>Pessoal</Select.ItemText>
-              <Select.ItemIndicator><Check size={10} weight="bold" /></Select.ItemIndicator>
+              <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
             </Styled.Item>
           </Styled.Viewport>
         </Styled.Content>

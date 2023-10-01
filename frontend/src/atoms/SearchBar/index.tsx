@@ -7,7 +7,7 @@ const SearchBar = () => {
       <Styled.Input placeholder="Pesquisar..."/>
 
       <Styled.Button>
-        <MagnifyingGlass size={20} weight="bold"/>
+        <MagnifyingGlass size={24} weight="bold"/>
       </Styled.Button>
     </Styled.Form>
   );

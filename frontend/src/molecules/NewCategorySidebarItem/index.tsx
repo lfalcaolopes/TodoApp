@@ -5,7 +5,7 @@ const NewCategorySidebarItem = () => {
   return (
     <Styled.Container>
       <Styled.IconWrapper>
-        <Plus size={20} weight="bold"/>
+        <Plus size={24} weight="bold"/>
         <Styled.Text>Adicionar categoria</Styled.Text>
       </Styled.IconWrapper>
     </Styled.Container>
