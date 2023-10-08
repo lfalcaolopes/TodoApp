@@ -7,10 +7,12 @@ const Container = styled.div`
   
   display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: 0.5rem;
   
   width: 2.0rem;
   height: 1.5rem;
 `;
 
-export { Container }
+export { Container };
+

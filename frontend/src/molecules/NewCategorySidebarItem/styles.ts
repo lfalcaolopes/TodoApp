@@ -4,8 +4,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
-  width: 40rem;
 `;
 
 const IconWrapper = styled.div`
@@ -18,4 +16,5 @@ const Text = styled.p`
   font-weight: 600;
 `;
 
-export {Container, Text, IconWrapper}
+export { Container, IconWrapper, Text };
+

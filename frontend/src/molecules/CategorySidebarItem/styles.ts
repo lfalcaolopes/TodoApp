@@ -24,4 +24,5 @@ const Text = styled.p`
   font-weight: 600;
 `;
 
-export {Container, Text, IconWrapper, CategoryIcon}
+export { CategoryIcon, Container, IconWrapper, Text };
+
