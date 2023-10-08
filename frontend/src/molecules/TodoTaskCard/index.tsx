@@ -1,38 +1,42 @@
-import * as Styled from './styles';
+import { DotsThreeOutlineVertical } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 import Checkbox from "../../atoms/Checkbox";
-import {DotsThreeOutlineVertical} from "@phosphor-icons/react";
-import {useState} from "react";
+import api from "../../utils/Axios";
+import { categoryListSchema, categoryProps, todoTaskProps } from '../../utils/Props';
 import CategorySelector from "../CategorySelector";
 import DateSelector from "../DateSelector";
+import * as Styled from './styles';
 
-interface TodoTaskProps {
-  todoTask: {
-    title: string;
-    category: string;
-    isComplete: boolean;
-    dueDate: string;
-  }
-  color: string;
-}
-
-const TodoTaskCard = ({todoTask, color}: TodoTaskProps) => {
+const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
+  const [categoryData, setCategoryData] = useState<categoryProps>()
   const [checked, setChecked] = useState<boolean | "indeterminate">(todoTask.isComplete);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    api.get('/categories').then((categoryResponse) => {
+      const categoryById = categoryListSchema.parse(categoryResponse.data.data).find(
+        (category: categoryProps) => category.id ===  todoTask.categoryId
+      )
+
+      setCategoryData(categoryById)
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Styled.Container>
       <Styled.TaskHeader>
 
         <Styled.TaskData>
-          <Checkbox color={color} checked={checked} setChecked={setChecked}/>
-          <p>{todoTask.title}</p>
+          <Checkbox color={categoryData?.color || "#fff"} checked={checked} setChecked={setChecked}/>
+          <p>{todoTask.name}</p>
         </Styled.TaskData>
         <DotsThreeOutlineVertical size={24} weight="fill" onClick={() => setIsOpen(prevState => !prevState)}/>
       </Styled.TaskHeader>
       {
         isOpen &&
           <Styled.Options>
-              <CategorySelector category={todoTask.category}/>
+              <CategorySelector category={categoryData?.name || "TodoTaskCard Error"}/>
               <DateSelector date={todoTask.dueDate} />
           </Styled.Options>
       }
