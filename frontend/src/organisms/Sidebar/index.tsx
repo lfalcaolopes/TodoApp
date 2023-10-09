@@ -2,6 +2,7 @@ import { CalendarBlank, Check, House } from "@phosphor-icons/react";
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import CategorySidebarItem from "../../molecules/CategorySidebarItem";
+import NewCategoryForm from "../../molecules/NewCategoryForm";
 import NewCategorySidebarItem from "../../molecules/NewCategorySidebarItem";
 import api from '../../utils/Axios';
 import { categoryListSchema, categoryProps, todoTaskListProps } from '../../utils/Props';
@@ -41,8 +42,6 @@ const Sidebar = ({todoTasksData}: {todoTasksData: todoTaskListProps | undefined}
     }
   }
 
-    console.log(categoriesTasksAmount)
-
   return (
     <Styled.Container>
       <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={allTasksAmount}>
@@ -53,12 +52,13 @@ const Sidebar = ({todoTasksData}: {todoTasksData: todoTaskListProps | undefined}
       </CategorySidebarItem>
       
       {categoryData?.map((category) => {
-        console.log(categoriesTasksAmount[category.id])
         return (
           <CategorySidebarItem key={category.id} categoryTitle={category.name} amount={categoriesTasksAmount[category.id]} color={category.color}/>
         )
       })}
-      
+
+      <NewCategoryForm />
+
       <CategorySidebarItem categoryTitle={"Completos"} amount={completedTasksAmount}>
         <Check size={24} weight="bold"/>
       </CategorySidebarItem>

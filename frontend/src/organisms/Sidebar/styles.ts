@@ -14,8 +14,9 @@ const Container = styled.aside`
 
   > * {
     cursor: pointer;
-    line-height: 1;
+    /* line-height: 1; */
   }
 `;
 
 export { Container };
+
