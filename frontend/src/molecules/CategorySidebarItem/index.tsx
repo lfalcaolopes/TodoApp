@@ -1,6 +1,6 @@
-import * as Styled from './styles';
+import { ReactNode } from "react";
 import TaskAmountIndicator from "../../atoms/TaskAmountIndicator";
-import {ReactNode} from "react";
+import * as Styled from './styles';
 
 interface CategorySidebarItemProps {
   categoryTitle: string;
@@ -16,7 +16,7 @@ const CategorySidebarItem = ({categoryTitle, amount, color, children}: CategoryS
         {children ? children : <Styled.CategoryIcon color={color || ""} />}
         <Styled.Text>{categoryTitle}</Styled.Text>
       </Styled.IconWrapper>
-      {amount !== undefined && <TaskAmountIndicator amount={amount}/>}
+       <TaskAmountIndicator amount={amount || 0}/>
     </Styled.Container>
   );
 };

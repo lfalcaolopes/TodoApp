@@ -1,8 +1,8 @@
 import * as Popover from "@radix-ui/react-popover";
 import styled from "styled-components";
 
-const Form = styled.form`
-  display: flex;
+const Form = styled.form<{ $isVisible: boolean }>`
+  display: ${({ $isVisible }) => $isVisible ? "flex" : "none"};
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
@@ -36,7 +36,13 @@ const ActionButtons = styled.div`
 const NameInput = styled.input.attrs({ type: "text" })`
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.secondaryText.toString()};
+  width: 11rem;
+
+  &:focus {
+    box-shadow: none;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.accent.toString()};
+  }
 `;
 
 const Content = styled(Popover.Content)`

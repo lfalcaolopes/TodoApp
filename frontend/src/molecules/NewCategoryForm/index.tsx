@@ -4,6 +4,8 @@ import * as Popover from "@radix-ui/react-popover";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import api from "../../utils/Axios";
+import { categoryProps } from "../../utils/Props";
 import * as Styled from "./styles";
 
 const createCategorySchema = z.object({
@@ -25,7 +27,13 @@ const defaultColors = [
   "#800000",
 ];
 
-const NewCategoryForm = () => {
+interface NewCategoryFormProps {
+  isVisible: boolean;
+  NewCategoryFormInvisible: () => void;
+  AddCategory: (newCategory: categoryProps) => void;
+}
+
+const NewCategoryForm = ({ isVisible, NewCategoryFormInvisible, AddCategory }: NewCategoryFormProps) => {
   const [selectedColor, setSelectedColor] = useState<string>("#fff");
   const { register, handleSubmit, reset } = useForm<createCategoryProps>({
     resolver: zodResolver(createCategorySchema),
@@ -33,20 +41,26 @@ const NewCategoryForm = () => {
 
   function createCategory(data: createCategoryProps) {
     data.color = selectedColor;
-    console.log(data);
+    
+    api.post("/categories", data).then((response) => {
+      AddCategory(response.data.data[0]);
+    })
+
+    handleFormReset();
   }
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
   };
 
-  function handleFormReset() {
+  function handleFormReset(hideCategoryForm?: boolean) {
     reset();
     setSelectedColor("#fff");
+    if(hideCategoryForm) NewCategoryFormInvisible();
   }
 
   return (
-    <Styled.Form onSubmit={handleSubmit(createCategory)}>
+    <Styled.Form onSubmit={handleSubmit(createCategory)} $isVisible={isVisible}>
       <Styled.Fields>
         <Popover.Root>
           <Popover.Trigger asChild>
@@ -91,7 +105,7 @@ const NewCategoryForm = () => {
             <Check size={20} weight="bold" />
           </p>
         </button>
-        <button type="button" onClick={() => handleFormReset()}>
+        <button type="button" onClick={() => handleFormReset(true)}>
           <p>
             <X size={20} weight="bold" />
           </p>

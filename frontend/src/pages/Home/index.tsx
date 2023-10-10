@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <Styled.Container>
-      <Sidebar todoTasksData={todoTasksData}/>
+      <Sidebar todoTasksData={todoTasksData} />
       
       <Styled.Content>
         <Header />
