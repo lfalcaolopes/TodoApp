@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryCard.toString()};
-  line-height: 1rem;
   border-radius: 0.5rem;
   
   display: flex;
@@ -32,11 +31,12 @@ const TaskData = styled.div`
   gap: 0.5rem;
   `;
 
-const Options = styled.div`
+const Form = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 10rem;
   padding: 0 0.5rem 0.5rem 0.5rem;
 `;
 
-export { Container, TaskHeader, TaskData, Options }
+export { Container, Form, TaskData, TaskHeader };
+

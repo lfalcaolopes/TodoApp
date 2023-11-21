@@ -1,11 +1,13 @@
-import * as Styled from './styles';
+import { UseFormRegister } from 'react-hook-form';
 import DatePicker from "../../atoms/DatePicker";
+import * as Styled from './styles';
 
-const DateSelector = ({date}: {date: string}) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DateSelector = ({date, register}: {date?: string, register: UseFormRegister<any>}) => {
   return (
     <Styled.Container>
       <Styled.Text>Data final</Styled.Text>
-      <DatePicker date={date} />
+      <DatePicker date={date} register={register} />
     </Styled.Container>
   );
 };

@@ -6,7 +6,7 @@ const Container = styled.div`
   
   &:after {
     position: absolute;
-    top: 7px;
+    top: 2px;
     right: 5px;
     content: "📅";
     font-size: 20px;
@@ -21,6 +21,7 @@ const Date = styled.input.attrs({type: "date"})`
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
   min-width: 8rem;
+  height: 1.75rem;
   
   &::-webkit-calendar-picker-indicator{
     opacity: 0;
@@ -30,4 +31,5 @@ const Date = styled.input.attrs({type: "date"})`
   
 `;
 
-export { Date, Container }
+export { Container, Date };
+

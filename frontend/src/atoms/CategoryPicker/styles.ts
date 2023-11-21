@@ -12,6 +12,7 @@ const Trigger = styled(Select.Trigger)`
   justify-content: space-between;
   min-width: 8rem;
   gap: 0.5rem;
+  height: 1.75rem;
   
   font-size: ${({ theme }) => theme.fontSizes.xSmall.toString()};
 `;
@@ -55,4 +56,4 @@ const Item = styled(Select.Item)`
   }
 `;
 
-export { Trigger, Icon, Content, Viewport, Item,  }
+export { Trigger, Icon, Content, Viewport, Item }
