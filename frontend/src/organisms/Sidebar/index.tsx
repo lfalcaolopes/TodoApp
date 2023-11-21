@@ -1,35 +1,23 @@
 import { CalendarBlank, Check, House } from "@phosphor-icons/react";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import CategorySidebarItem from "../../molecules/CategorySidebarItem";
 import NewCategoryForm from "../../molecules/NewCategoryForm";
 import NewCategorySidebarItem from "../../molecules/NewCategorySidebarItem";
-import api from "../../utils/Axios";
 import {
-  categoryListSchema,
-  categoryProps,
-  todoTaskListProps,
+  categoryProps
 } from "../../utils/Props";
+import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
 
-const Sidebar = ({
-  todoTasksData,
-}: {
-  todoTasksData: todoTaskListProps | undefined;
-}) => {
-  const [categoryData, setCategoryData] = useState<categoryProps[]>();
+const Sidebar = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const { categoryData, todoTaskData, setCategoryData } = useContext(DataContext);
 
-  const allTasksAmount = todoTasksData?.length;
+  const allTasksAmount = todoTaskData?.length;
   const categoriesTasksAmount: Record<number, number> = {};
   let dueTodayAmount = 0;
   let completedTasksAmount = 0;
-
-  useEffect(() => {
-    api.get("/categories").then((categoryResponse) => {
-      setCategoryData(categoryListSchema.parse(categoryResponse.data.data));
-    });
-  }, []);
 
   function NewCategoryFormVisible() {
     setIsVisible(true);
@@ -44,7 +32,7 @@ const Sidebar = ({
     NewCategoryFormInvisible();
   }
 
-  for (const todoTask of todoTasksData || []) {
+  for (const todoTask of todoTaskData || []) {
     const dueDate = dayjs(todoTask.dueDate);
 
     // eslint-disable-next-line no-prototype-builtins

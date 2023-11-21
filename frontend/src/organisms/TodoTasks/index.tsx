@@ -1,16 +1,18 @@
+import { useContext } from "react";
 import TodoTaskCard from "../../molecules/TodoTaskCard";
-import { todoTaskListProps } from "../../utils/Props";
+import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
 
 
-const TodoTasks = ({todoTasksData}: {todoTasksData: todoTaskListProps | undefined}) => {
+const TodoTasks = () => {
+  const { todoTaskData } = useContext(DataContext);
 
   return (
     <Styled.Container>
       <Styled.Title>Todas as atividades</Styled.Title>
       
       <Styled.Content>
-        {todoTasksData?.map((todoTask) => (
+        {todoTaskData?.map((todoTask) => (
           <TodoTaskCard todoTask={todoTask} key={todoTask.name} />
           ))}
       </Styled.Content>
