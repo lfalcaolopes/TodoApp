@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useState } from 'react';
-import NewTodoTask from '../../atoms/NewTodoTask';
+import ActionButton from '../../atoms/ActionButton';
 import SearchBar from "../../atoms/SearchBar";
 import NewTodoTaskModal from '../../molecules/NewTodoTaskForm';
 import * as Styled from './styles';
@@ -14,7 +14,7 @@ const Header = () => {
 
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
-          <NewTodoTask openModal={()=> setOpen(true)}/>
+          <ActionButton text="Nova atividade" openModal={()=> setOpen(true)}/>
         </Dialog.Trigger>
 
         <NewTodoTaskModal open={open} closeModal={()=> setOpen(false)} />

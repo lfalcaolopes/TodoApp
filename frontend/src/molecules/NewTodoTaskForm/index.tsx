@@ -64,7 +64,7 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
           <DateSelector register={register} />
           {errors.dueDate && <Styled.Error>{errors?.dueDate.message}</Styled.Error>}
 
-          <Styled.Button type="submit">CRIAR NOVA ATIVIDADE</Styled.Button>
+          <ActionButton text="CRIAR NOVA ATIVIDADE" />
         </Styled.Form>
         
       </Styled.Content>
