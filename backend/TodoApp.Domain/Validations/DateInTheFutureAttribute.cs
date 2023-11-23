@@ -7,9 +7,11 @@ public class DateInFutureAttribute : ValidationAttribute
 {
     protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
     {
+        if (value == null) return ValidationResult.Success; // Null is allowed, validation succeeds.
+
         if (value is DateTime date)
         {
-            if (date > DateTime.Now)
+            if (date.Date >= DateTime.Now.Date)
             {
                 return ValidationResult.Success; // Date is in the future, validation succeeds.
             }
