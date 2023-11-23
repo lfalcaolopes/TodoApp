@@ -4,6 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import ActionButton from '../../atoms/ActionButton';
 import api from '../../utils/Axios';
 import { DataContext } from '../../utils/dataContext';
 import CategorySelector from '../CategorySelector';
@@ -11,9 +12,14 @@ import DateSelector from '../DateSelector';
 import * as Styled from './styles';
 
 const createTodoTaskSchema = z.object({
-  name: z.string().max(40),
+  name: z.string().max(40, {message: "O nome da atividade deve ter no máximo 40 caracteres"}),
   categoryId: z.string().max(20),
-  dueDate: z.string().max(10)
+  dueDate: z.string().refine((date) => {
+    const now = new Date().toISOString().split('T')[0];
+    const dueDate = new Date(date).toISOString().split('T')[0];
+
+    return dueDate >= now;
+  }, {message: "A data deve ser no futuro"})
 });
 
 type createTodoTaskProps = z.infer<typeof createTodoTaskSchema>;
@@ -22,7 +28,6 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
   const { register, control, handleSubmit, reset, formState: {errors} } = useForm<createTodoTaskProps>({
     resolver: zodResolver(createTodoTaskSchema)
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { setTodoTaskData } = useContext(DataContext);
 
   function handleFormSubmit(data: createTodoTaskProps) {
@@ -31,9 +36,7 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
     console.log(createTodoTask);
 
     api.post('/todotasks', createTodoTask).then(response => {
-      console.log(response.data) 
-
-      setTodoTaskData((prev) => [...(prev || []), response.data]);
+      setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
     });
 
     reset();
