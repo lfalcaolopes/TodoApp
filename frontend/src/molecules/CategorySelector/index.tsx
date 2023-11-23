@@ -7,7 +7,7 @@ const CategorySelector = ({category, control}: {category?: string, control: Cont
   return (
     <Styled.Container>
       <Styled.Text>Categoria</Styled.Text>
-      <CategoryPicker category={category} control={control}/>
+      <CategoryPicker definedCategory={category} control={control}/>
     </Styled.Container>
   );
 };

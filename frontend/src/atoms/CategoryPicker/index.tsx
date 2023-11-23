@@ -6,19 +6,19 @@ import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CategoryPicker = ({category, control}: {category?: string, control: Control<any>}) => {
+const CategoryPicker = ({definedCategory, control}: {definedCategory?: string, control: Control<any>}) => {
   const { categoryData } = useContext(DataContext);
 
   return (
     <Controller 
       name="categoryId"
       control={control}
-      defaultValue={category}
+      defaultValue={definedCategory}
       render={({ field }) => (
         <Select.Root value={field.value} onValueChange={field.onChange}>
           <Styled.Trigger>
             <Select.Value placeholder="Escolha uma caregoria" >
-              {category ? field.value : category}
+              {definedCategory ? field.value : definedCategory}
             </Select.Value>
             <Styled.Icon asChild>
               <CaretDown size={18} weight="bold" />
@@ -35,18 +35,6 @@ const CategoryPicker = ({category, control}: {category?: string, control: Contro
                   </Styled.Item>
                 )
                 )}
-                {/* <Styled.Item value="Trabalho">
-                  <Select.ItemText>Trabalho</Select.ItemText>
-                  <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
-                </Styled.Item>
-                <Styled.Item value="Estudos">
-                  <Select.ItemText>Estudos</Select.ItemText>
-                  <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
-                </Styled.Item>
-                <Styled.Item value="Pessoal">
-                  <Select.ItemText>Pessoal</Select.ItemText>
-                  <Select.ItemIndicator><Check size={14} weight="bold" /></Select.ItemIndicator>
-                </Styled.Item> */}
               </Styled.Viewport>
             </Styled.Content>
           </Select.Portal>
