@@ -1,19 +1,24 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DotsThreeOutlineVertical } from "@phosphor-icons/react";
-import {useContext, useState} from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {DotsThreeOutlineVertical} from "@phosphor-icons/react";
+import {useContext, useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import ActionButton from "../../atoms/ActionButton/index.tsx";
 import Checkbox from "../../atoms/Checkbox";
-import { categoryProps, todoTaskProps } from '../../utils/Props';
-import CategorySelector from "../CategorySelector";
+import api from "../../utils/Axios.ts";
+import {categoryProps, todoTaskProps} from '../../utils/Props';
+import {DataContext} from "../../utils/dataContext.tsx";
 import DateSelector from "../DateSelector";
 import * as Styled from './styles';
-import {DataContext} from "../../utils/dataContext.tsx";
 
 
 const updateTodoTaskSchema = z.object({
-  category: z.string().max(19),
-  dueDate: z.string().max(10)
+  dueDate: z.string().refine((date) => {
+    const now = new Date().toISOString().split('T')[0];
+    const dueDate = new Date(date).toISOString().split('T')[0];
+
+    return dueDate >= now;
+  }, {message: "A data deve ser no futuro"})
 });
 
 type updateTodoTaskProps = z.infer<typeof updateTodoTaskSchema>;
@@ -21,21 +26,58 @@ type updateTodoTaskProps = z.infer<typeof updateTodoTaskSchema>;
 const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
   const [checked, setChecked] = useState<boolean | "indeterminate">(todoTask.isComplete);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const { categoryData } = useContext(DataContext);
 
   const categoryById = categoryData?.find(
     (category: categoryProps) => category.id ===  todoTask.categoryId
   )
+
+  const { setTodoTaskData } = useContext(DataContext);
   
-  const { register, control, handleSubmit, reset } = useForm<updateTodoTaskProps>({
+  const { register, handleSubmit, reset, watch} = useForm<updateTodoTaskProps>({
     resolver: zodResolver(updateTodoTaskSchema)
   });
 
+  const watchDueDate = watch("dueDate");
+
   function onSubmit(data: updateTodoTaskProps) {
-    console.log(data);
+
+    const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
+    api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
+
+      setTodoTaskData((prev) => {
+        return prev?.map(item => {
+          if (item.id === todoTask.id) {
+            return {...item, dueDate: response.data.data[0].dueDate};
+          }
+          return item;
+        });
+      });
+    });
+
     setIsOpen(false);
     reset();
   }
+
+  useEffect(() => {
+    if (!watchDueDate) return;
+
+
+    if (watchDueDate !== todoTask.dueDate.split('T')[0]) {
+
+      setIsEditing(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDueDate]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsEditing(false);
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   return (
     <Styled.Container>
@@ -50,8 +92,9 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
       {
         isOpen &&
           <Styled.Form onSubmit={handleSubmit(onSubmit)}>
-              <CategorySelector category={categoryById?.name || "TodoTaskCard Error"} control={control}/>
               <DateSelector date={todoTask.dueDate} register={register}/>
+
+            {isEditing && <ActionButton text="Salvar" />}
           </Styled.Form>
       }
     </Styled.Container>

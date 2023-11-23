@@ -13,7 +13,7 @@ const TodoTasks = () => {
       
       <Styled.Content>
         {todoTaskData?.map((todoTask) => (
-          <TodoTaskCard todoTask={todoTask} key={todoTask.name} />
+          <TodoTaskCard todoTask={todoTask} key={todoTask.id} />
           ))}
       </Styled.Content>
     </Styled.Container>

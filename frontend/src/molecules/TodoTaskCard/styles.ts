@@ -31,12 +31,18 @@ const TaskData = styled.div`
   gap: 0.5rem;
   `;
 
-const Form = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 10rem;
+const Form = styled.form`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 0 0.5rem 0.5rem 0.5rem;
+  height: 3.5rem;
+
+  gap: 1rem;
+
+  button {
+    justify-self: flex-end;
+    margin-right: 0.5rem;
+  }
 `;
 
 export { Container, Form, TaskData, TaskHeader };
-
