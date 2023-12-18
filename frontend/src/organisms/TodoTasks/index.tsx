@@ -3,13 +3,16 @@ import TodoTaskCard from "../../molecules/TodoTaskCard";
 import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
 
+interface TodoTasksProps {
+  selectedCategory: string;
+}
 
-const TodoTasks = () => {
+const TodoTasks = ({selectedCategory} : TodoTasksProps) => {
   const { todoTaskData } = useContext(DataContext);
 
   return (
     <Styled.Container>
-      <Styled.Title>Todas as atividades</Styled.Title>
+      <Styled.Title>{selectedCategory}</Styled.Title>
       
       <Styled.Content>
         {todoTaskData?.map((todoTask) => (
