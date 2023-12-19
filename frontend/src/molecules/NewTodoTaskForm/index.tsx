@@ -28,15 +28,15 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
   const { register, control, handleSubmit, reset, formState: {errors} } = useForm<createTodoTaskProps>({
     resolver: zodResolver(createTodoTaskSchema)
   });
-  const { setTodoTaskData } = useContext(DataContext);
+  const { setTodoTaskData, updateSidebar } = useContext(DataContext);
 
   function handleFormSubmit(data: createTodoTaskProps) {
 
     const createTodoTask = {...data, dueDate: new Date(data.dueDate).toISOString(), categoryId: parseInt(data.categoryId)}
-    console.log(createTodoTask);
 
     api.post('/todotasks', createTodoTask).then(response => {
       setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
+      updateSidebar();
     });
 
     reset();
