@@ -5,12 +5,17 @@ import CategorySidebarItem from "../../molecules/CategorySidebarItem";
 import NewCategoryForm from "../../molecules/NewCategoryForm";
 import NewCategorySidebarItem from "../../molecules/NewCategorySidebarItem";
 import {
-  categoryProps
+  categoryProps, todoTaskListSchema
 } from "../../utils/Props";
 import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
+import api from "../../utils/Axios";
 
-const Sidebar = () => {
+interface sidebarProps {
+  setSelectedCategory: (category: string) => void;
+}
+
+const Sidebar = ({setSelectedCategory} : sidebarProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const { categoryData, categoriesTasksAmount, setCategoryData, setTodoTaskData } = useContext(DataContext);
 
@@ -27,23 +32,28 @@ const Sidebar = () => {
     NewCategoryFormInvisible();
   }
 
-  for (const todoTask of todoTaskData || []) {
-    const dueDate = dayjs(todoTask.dueDate);
+  function showSpecificCategory(categoryIdentifier?: number | "all" | "today" | "completed") {
+    api.get('/todotasks').then((taskResponse) => {
 
-    // eslint-disable-next-line no-prototype-builtins
-    if (categoriesTasksAmount.hasOwnProperty(todoTask.categoryId)) {
-      categoriesTasksAmount[todoTask.categoryId]++;
-    } else {
-      categoriesTasksAmount[todoTask.categoryId] = 1;
-    }
+      const parsedData = todoTaskListSchema.parse(taskResponse.data.data);
 
-    if (todoTask.isComplete === true) {
-      completedTasksAmount += 1;
-    }
-
-    if (dayjs().isSame(dueDate, "day")) {
-      dueTodayAmount += 1;
-    }
+      if (categoryIdentifier === "all") {
+        setTodoTaskData(parsedData);
+        setSelectedCategory("Todas as atividades");
+      }
+      else if (categoryIdentifier === "today") {
+        setTodoTaskData(parsedData.filter((todoTask) => dayjs().isSame(todoTask.dueDate, "day")));
+        setSelectedCategory("Para hoje");
+      }
+      else if (categoryIdentifier === "completed") {
+        setTodoTaskData(parsedData.filter((todoTask) => todoTask.isComplete === true));
+        setSelectedCategory("Completos");
+      }
+      else {
+        setTodoTaskData(parsedData.filter((todoTask) => todoTask.categoryId === categoryIdentifier));
+        setSelectedCategory(categoryData?.find((category) => category.id === categoryIdentifier)?.name || "");
+      }
+    })
   }
 
   return (
@@ -62,6 +72,7 @@ const Sidebar = () => {
             categoryTitle={category.name}
             amount={categoriesTasksAmount?.get(category.id.toString())}
             color={category.color}
+            changeShownCategory={() => showSpecificCategory(category.id)}
           />
         );
       })}
@@ -74,8 +85,8 @@ const Sidebar = () => {
 
       <CategorySidebarItem
         categoryTitle={"Completos"}
-        amount={completedTasksAmount}
         amount={categoriesTasksAmount?.get("completed")}
+        changeShownCategory={() => showSpecificCategory("completed")}
       >
         <Check size={24} weight="bold" />
       </CategorySidebarItem>

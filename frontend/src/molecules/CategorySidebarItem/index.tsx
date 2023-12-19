@@ -6,12 +6,13 @@ interface CategorySidebarItemProps {
   categoryTitle: string;
   amount?: number;
   color?: string;
+  changeShownCategory: () => void;
   children?: ReactNode;
 }
 
-const CategorySidebarItem = ({categoryTitle, amount, color, children}: CategorySidebarItemProps) => {
+const CategorySidebarItem = ({categoryTitle, amount, color, children, changeShownCategory}: CategorySidebarItemProps) => {
   return (
-    <Styled.Container>
+    <Styled.Container onClick={changeShownCategory}>
       <Styled.IconWrapper>
         {children ? children : <Styled.CategoryIcon color={color || ""} />}
         <Styled.Text>{categoryTitle}</Styled.Text>
