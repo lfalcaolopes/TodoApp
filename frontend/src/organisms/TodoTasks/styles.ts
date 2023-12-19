@@ -20,4 +20,14 @@ const Content = styled.div`
   gap: 1rem;
 `;
 
-export { Container, Title, Content }
+const NoContent = styled.div`
+  font-size: ${({ theme }) => theme.fontSizes.small.toString()};
+  color: ${({ theme }) => theme.colors.secondaryText.toString()};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+export { NoContent, Container, Title, Content }

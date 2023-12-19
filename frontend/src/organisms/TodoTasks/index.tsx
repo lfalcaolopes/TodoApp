@@ -15,9 +15,12 @@ const TodoTasks = ({selectedCategory} : TodoTasksProps) => {
       <Styled.Title>{selectedCategory}</Styled.Title>
       
       <Styled.Content>
-        {todoTaskData?.map((todoTask) => (
-          <TodoTaskCard todoTask={todoTask} key={todoTask.id} />
-          ))}
+        {todoTaskData && todoTaskData.length > 0
+          ?  todoTaskData.map((todoTask) => (
+            <TodoTaskCard todoTask={todoTask} key={todoTask.id} />
+          ))
+          : <Styled.NoContent>Não há atividades</Styled.NoContent>
+        }
       </Styled.Content>
     </Styled.Container>
   );
