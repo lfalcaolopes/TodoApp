@@ -12,12 +12,7 @@ import * as Styled from "./styles";
 
 const Sidebar = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { categoryData, todoTaskData, setCategoryData } = useContext(DataContext);
-
-  const allTasksAmount = todoTaskData?.length;
-  const categoriesTasksAmount: Record<number, number> = {};
-  let dueTodayAmount = 0;
-  let completedTasksAmount = 0;
+  const { categoryData, categoriesTasksAmount, setCategoryData, setTodoTaskData } = useContext(DataContext);
 
   function NewCategoryFormVisible() {
     setIsVisible(true);
@@ -53,13 +48,10 @@ const Sidebar = () => {
 
   return (
     <Styled.Container>
-      <CategorySidebarItem
-        categoryTitle={"Todas as atividades"}
-        amount={allTasksAmount}
-      >
+      <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={categoriesTasksAmount?.get("all")} changeShownCategory={() => showSpecificCategory("all")}>
         <House size={24} weight="bold" />
       </CategorySidebarItem>
-      <CategorySidebarItem categoryTitle={"Para hoje"} amount={dueTodayAmount}>
+      <CategorySidebarItem categoryTitle={"Para hoje"} amount={categoriesTasksAmount?.get("today")} changeShownCategory={() => showSpecificCategory("today")}>
         <CalendarBlank size={24} weight="bold" />
       </CategorySidebarItem>
 
@@ -68,7 +60,7 @@ const Sidebar = () => {
           <CategorySidebarItem
             key={category.id}
             categoryTitle={category.name}
-            amount={categoriesTasksAmount[category.id]}
+            amount={categoriesTasksAmount?.get(category.id.toString())}
             color={category.color}
           />
         );
@@ -83,6 +75,7 @@ const Sidebar = () => {
       <CategorySidebarItem
         categoryTitle={"Completos"}
         amount={completedTasksAmount}
+        amount={categoriesTasksAmount?.get("completed")}
       >
         <Check size={24} weight="bold" />
       </CategorySidebarItem>
