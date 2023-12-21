@@ -10,4 +10,6 @@ public class SearchTodoTaskDto
     public bool? IsDueToday { get; set; }
     [FromQuery(Name = "category_id")]
     public int? CategoryId { get; set; }
+    [FromQuery(Name = "name")]
+    public string? Name { get; set; }
 }

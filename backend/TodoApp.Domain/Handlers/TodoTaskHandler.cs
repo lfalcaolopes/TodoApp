@@ -81,6 +81,13 @@ public class TodoTaskHandler : ITodoTaskHandler
 
                 return new ResponseDto(true, todoTasks);
             }
+
+            if (command.Name != null)
+            {
+                var todoTasks = await _repository.GetAsync(x => x.Name.ToUpper().Contains(command.Name.ToUpper()));
+
+                return new ResponseDto(true, todoTasks);
+            }
         }
         catch (Exception ex)
         {
