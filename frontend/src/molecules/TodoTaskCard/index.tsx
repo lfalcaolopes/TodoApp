@@ -33,7 +33,7 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
     (category: categoryProps) => category.id ===  todoTask.categoryId
   )
 
-  const { setTodoTaskData } = useContext(DataContext);
+  const { setTodoTaskData, updateSidebar } = useContext(DataContext);
   
   const { register, handleSubmit, reset, watch} = useForm<updateTodoTaskProps>({
     resolver: zodResolver(updateTodoTaskSchema)
@@ -79,12 +79,44 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
+  function handleCheck(checked: boolean | "indeterminate") {
+    if (checked === true) {
+      api.patch(`/todotasks/${todoTask.id}/mark-as-done`).then(() => {
+
+        setTodoTaskData((prev) => {
+          return prev?.map(item => {
+            if (item.id === todoTask.id) {
+              updateSidebar();
+              return {...item, isComplete: true};
+            }
+            return item;
+          });
+        });
+      });
+    } else if (checked === false) {
+      api.patch(`/todotasks/${todoTask.id}/mark-as-undone`).then(() => {
+
+        setTodoTaskData((prev) => {
+          return prev?.map(item => {
+            if (item.id === todoTask.id) {
+              updateSidebar();
+              return {...item, isComplete: false};
+            }
+            return item;
+          });
+        });
+      });
+    }
+    
+    setChecked(checked);
+  }
+
   return (
     <Styled.Container>
       <Styled.TaskHeader>
 
         <Styled.TaskData>
-          <Checkbox color={categoryById?.color || "#fff"} checked={checked} setChecked={setChecked}/>
+          <Checkbox color={categoryById?.color || "#fff"} checked={checked} handleCheck={handleCheck}/>
           <p>{todoTask.name}</p>
         </Styled.TaskData>
         <DotsThreeOutlineVertical size={24} weight="fill" onClick={() => setIsOpen(prevState => !prevState)}/>
