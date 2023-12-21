@@ -10,6 +10,7 @@ import {
 import { DataContext } from "../../utils/dataContext";
 import * as Styled from "./styles";
 import api from "../../utils/Axios";
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 
 interface sidebarProps {
   setSelectedCategory: (category: string) => void;
@@ -57,42 +58,48 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
   }
 
   return (
-    <Styled.Container>
-      <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={categoriesTasksAmount?.get("all")} changeShownCategory={() => showSpecificCategory("all")}>
-        <House size={24} weight="bold" />
-      </CategorySidebarItem>
-      <CategorySidebarItem categoryTitle={"Para hoje"} amount={categoriesTasksAmount?.get("today")} changeShownCategory={() => showSpecificCategory("today")}>
-        <CalendarBlank size={24} weight="bold" />
-      </CategorySidebarItem>
+    <Styled.ScrollareaRoot>
+      <ScrollArea.Viewport className="viewport">
+        <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={categoriesTasksAmount?.get("all")} changeShownCategory={() => showSpecificCategory("all")}>
+          <House size={24} weight="bold" />
+        </CategorySidebarItem>
+        <CategorySidebarItem categoryTitle={"Para hoje"} amount={categoriesTasksAmount?.get("today")} changeShownCategory={() => showSpecificCategory("today")}>
+          <CalendarBlank size={24} weight="bold" />
+        </CategorySidebarItem>
 
-      {categoryData?.map((category) => {
-        return (
-          <CategorySidebarItem
-            key={category.id}
-            categoryTitle={category.name}
-            amount={categoriesTasksAmount?.get(category.id.toString())}
-            color={category.color}
-            changeShownCategory={() => showSpecificCategory(category.id)}
-          />
-        );
-      })}
+        {categoryData?.map((category) => {
+          return (
+            <CategorySidebarItem
+              key={category.id}
+              categoryTitle={category.name}
+              amount={categoriesTasksAmount?.get(category.id.toString())}
+              color={category.color}
+              changeShownCategory={() => showSpecificCategory(category.id)}
+            />
+          );
+        })}
 
-      <NewCategoryForm
-        isVisible={isVisible}
-        NewCategoryFormInvisible={NewCategoryFormInvisible}
-        AddCategory={AddCategory}
-      />
+        <NewCategoryForm
+          isVisible={isVisible}
+          NewCategoryFormInvisible={NewCategoryFormInvisible}
+          AddCategory={AddCategory}
+        />
 
-      <CategorySidebarItem
-        categoryTitle={"Completos"}
-        amount={categoriesTasksAmount?.get("completed")}
-        changeShownCategory={() => showSpecificCategory("completed")}
-      >
-        <Check size={24} weight="bold" />
-      </CategorySidebarItem>
+        <CategorySidebarItem
+          categoryTitle={"Completos"}
+          amount={categoriesTasksAmount?.get("completed")}
+          changeShownCategory={() => showSpecificCategory("completed")}
+        >
+          <Check size={24} weight="bold" />
+        </CategorySidebarItem>
 
-      <NewCategorySidebarItem NewCategoryFormVisible={NewCategoryFormVisible} />
-    </Styled.Container>
+        <NewCategorySidebarItem NewCategoryFormVisible={NewCategoryFormVisible} />
+      </ScrollArea.Viewport>
+
+      <ScrollArea.Scrollbar className="scrollbar" orientation="vertical">
+        <ScrollArea.Thumb className="thumb"/>
+      </ScrollArea.Scrollbar>
+    </Styled.ScrollareaRoot>
   );
 };
 
