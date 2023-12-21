@@ -1,22 +1,38 @@
 export type ThemeType = {
   colors: {
-    background: String,
+    background: string,
 
-    primaryCard: String,
-    secondaryCard: String,
+    primaryCard: string,
+    secondaryCard: string,
 
-    primaryText: String,
-    secondaryText: String,
+    primaryText: string,
+    secondaryText: string,
 
-    accent: String,
-    accentText: String,
+    accent: string,
+    accentText: string,
+  },
+  functionalColors: {
+    successBackground: string,
+    successLight: string,
+    success: string,
+    successDark: string,
+
+    warningBackground: string,
+    warningLight: string,
+    warning: string,
+    warningDark: string,
+
+    errorBackground: string,
+    errorLight: string,
+    error: string,
+    errorDark: string,
   },
   fontSizes: {
-    xSmall: String, // 12px
-    small: String, // 14px
-    medium: String,    // 16px
-    large: String,   // 24px
-    xLarge: String,  // 40px
+    xSmall: string, // 12px
+    small: string, // 14px
+    medium: string,    // 16px
+    large: string,   // 24px
+    xLarge: string,  // 40px
   },
 }
 
