@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import GlobalStyle from "./styles/globalStyles.ts";
 import { darkTheme } from "./styles/themes/dark.ts";
 import DataProvider from "./utils/dataContext.tsx";
+import ToastProvider from "./utils/toastContext.tsx";
 
 function App() {
 
@@ -10,9 +11,11 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <DataProvider>
-        <GlobalStyle/>
+        <ToastProvider>
+          <GlobalStyle/>
 
-        <Home  />
+          <Home  />
+        </ToastProvider>
       </DataProvider>
     </ThemeProvider>
   )
