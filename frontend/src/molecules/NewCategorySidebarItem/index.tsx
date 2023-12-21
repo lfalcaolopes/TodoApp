@@ -2,12 +2,12 @@ import { Plus } from "@phosphor-icons/react";
 import * as Styled from './styles';
 
 interface NewCategorySidebarItemProps {
-  NewCategoryFormVisible: () => void;
+  ShowCategoryForm: () => void;
 }
 
-const NewCategorySidebarItem = ({ NewCategoryFormVisible }: NewCategorySidebarItemProps) => {
+const NewCategorySidebarItem = ({ ShowCategoryForm }: NewCategorySidebarItemProps) => {
   return (
-    <Styled.Container onClick={ NewCategoryFormVisible }>
+    <Styled.Container onClick={ ShowCategoryForm }>
       <Styled.IconWrapper>
         <Plus size={24} weight="bold"/>
         <Styled.Text>Adicionar categoria</Styled.Text>

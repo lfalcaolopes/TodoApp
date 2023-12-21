@@ -17,44 +17,42 @@ interface sidebarProps {
 }
 
 const Sidebar = ({setSelectedCategory} : sidebarProps) => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
   const { categoryData, categoriesTasksAmount, setCategoryData, setTodoTaskData } = useContext(DataContext);
 
-  function NewCategoryFormVisible() {
-    setIsVisible(true);
-  }
-
-  function NewCategoryFormInvisible() {
-    setIsVisible(false);
-  }
+  const [categoryFormIsVisible, setCategoryFormIsVisible] = useState<boolean>(false);
 
   function AddCategory(newCategory: categoryProps) {
     setCategoryData((prev) => [...(prev || []), newCategory]);
-    NewCategoryFormInvisible();
+    setCategoryFormIsVisible(true);
   }
 
   function showSpecificCategory(categoryIdentifier?: number | "all" | "today" | "completed") {
     api.get('/todotasks').then((taskResponse) => {
-
       const parsedData = todoTaskListSchema.parse(taskResponse.data.data);
+      let filteredData = parsedData;
+      let selectedCategory = "";
 
-      if (categoryIdentifier === "all") {
-        setTodoTaskData(parsedData);
-        setSelectedCategory("Todas as atividades");
+      switch (categoryIdentifier) {
+        case "all":
+          selectedCategory = "Todas as atividades";
+          break;
+        case "today":
+          filteredData = parsedData.filter((todoTask) => dayjs().isSame(todoTask.dueDate, "day"));
+          selectedCategory = "Para hoje";
+          break;
+        case "completed":
+          filteredData = parsedData.filter((todoTask) => todoTask.isComplete === true);
+          selectedCategory = "Completos";
+          break;
+        default:
+          filteredData = parsedData.filter((todoTask) => todoTask.categoryId === categoryIdentifier);
+          selectedCategory = categoryData?.find((category) => category.id === categoryIdentifier)?.name || "";
+          break;
       }
-      else if (categoryIdentifier === "today") {
-        setTodoTaskData(parsedData.filter((todoTask) => dayjs().isSame(todoTask.dueDate, "day")));
-        setSelectedCategory("Para hoje");
-      }
-      else if (categoryIdentifier === "completed") {
-        setTodoTaskData(parsedData.filter((todoTask) => todoTask.isComplete === true));
-        setSelectedCategory("Completos");
-      }
-      else {
-        setTodoTaskData(parsedData.filter((todoTask) => todoTask.categoryId === categoryIdentifier));
-        setSelectedCategory(categoryData?.find((category) => category.id === categoryIdentifier)?.name || "");
-      }
-    })
+
+      setTodoTaskData(filteredData);
+      setSelectedCategory(selectedCategory);
+    });
   }
 
   return (
@@ -80,8 +78,8 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
         })}
 
         <NewCategoryForm
-          isVisible={isVisible}
-          NewCategoryFormInvisible={NewCategoryFormInvisible}
+          isVisible={categoryFormIsVisible}
+          HideCategoryForm={() => setCategoryFormIsVisible(false)}
           AddCategory={AddCategory}
         />
 
@@ -93,7 +91,7 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
           <Check size={24} weight="bold" />
         </CategorySidebarItem>
 
-        <NewCategorySidebarItem NewCategoryFormVisible={NewCategoryFormVisible} />
+        <NewCategorySidebarItem ShowCategoryForm={() => setCategoryFormIsVisible(true)} />
       </ScrollArea.Viewport>
 
       <ScrollArea.Scrollbar className="scrollbar" orientation="vertical">

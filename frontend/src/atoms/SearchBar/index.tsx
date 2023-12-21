@@ -15,7 +15,6 @@ const searchSchema = z.object({
 type searchProps = z.infer<typeof searchSchema>;
 
 const SearchBar = () => {
-
   const { setTodoTaskData } = useContext(DataContext);
   const { addToast } = useContext(ToastContext);
   const { register, handleSubmit, reset } = useForm<searchProps>({

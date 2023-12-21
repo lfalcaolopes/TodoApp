@@ -30,16 +30,17 @@ const defaultColors = [
 
 interface NewCategoryFormProps {
   isVisible: boolean;
-  NewCategoryFormInvisible: () => void;
+  HideCategoryForm: () => void;
   AddCategory: (newCategory: categoryProps) => void;
 }
 
-const NewCategoryForm = ({ isVisible, NewCategoryFormInvisible, AddCategory }: NewCategoryFormProps) => {
-  const [selectedColor, setSelectedColor] = useState<string>("#fff");
+const NewCategoryForm = ({ isVisible, HideCategoryForm, AddCategory }: NewCategoryFormProps) => {
   const { addToast } = useContext(ToastContext);
   const { register, handleSubmit, reset } = useForm<createCategoryProps>({
     resolver: zodResolver(createCategorySchema),
   });
+
+  const [selectedColor, setSelectedColor] = useState<string>("#fff");
 
   function createCategory(data: createCategoryProps) {
     data.color = selectedColor;
@@ -64,7 +65,7 @@ const NewCategoryForm = ({ isVisible, NewCategoryFormInvisible, AddCategory }: N
   function handleFormReset(hideCategoryForm?: boolean) {
     reset();
     setSelectedColor("#fff");
-    if(hideCategoryForm) NewCategoryFormInvisible();
+    if(hideCategoryForm) HideCategoryForm();
   }
 
   return (

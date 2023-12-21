@@ -25,19 +25,22 @@ const createTodoTaskSchema = z.object({
 
 type createTodoTaskProps = z.infer<typeof createTodoTaskSchema>;
 
-function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () => void}) {
+interface NewTodoTaskModalProps {
+  todoTaskFormIsVisible: boolean;
+  closeModal: () => void;
+}
+
+function NewTodoTaskModal({todoTaskFormIsVisible, closeModal} : NewTodoTaskModalProps) {
+  const { addToast } = useContext(ToastContext);
+  const { setTodoTaskData, updateSidebar } = useContext(DataContext);
   const { register, control, handleSubmit, reset, formState: {errors} } = useForm<createTodoTaskProps>({
     resolver: zodResolver(createTodoTaskSchema)
   });
-  const { addToast } = useContext(ToastContext);
-  const { setTodoTaskData, updateSidebar } = useContext(DataContext);
 
   function handleFormSubmit(data: createTodoTaskProps) {
-
     const createTodoTask = {...data, dueDate: new Date(data.dueDate).toISOString(), categoryId: parseInt(data.categoryId)}
 
     api.post('/todotasks', createTodoTask).then(response => {
-
       if (response.data.success) {
         setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
         updateSidebar();
@@ -53,10 +56,9 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
   }
 
   useEffect(() => {
-
     reset();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  }, [todoTaskFormIsVisible]);
 
   return (
     <Dialog.Portal>

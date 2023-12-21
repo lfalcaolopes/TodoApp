@@ -23,26 +23,27 @@ const updateTodoTaskSchema = z.object({
 
 type updateTodoTaskProps = z.infer<typeof updateTodoTaskSchema>;
 
-const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
-  const [checked, setChecked] = useState<boolean | "indeterminate">(todoTask.isComplete);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+interface TodoTaskCardProps {
+  todoTask: todoTaskProps;
+}
+
+const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
   const { categoryData } = useContext(DataContext);
-
-  const categoryById = categoryData?.find(
-    (category: categoryProps) => category.id ===  todoTask.categoryId
-  )
-
   const { setTodoTaskData, updateSidebar } = useContext(DataContext);
-  
   const { register, handleSubmit, reset, watch} = useForm<updateTodoTaskProps>({
     resolver: zodResolver(updateTodoTaskSchema)
   });
 
+  const [checked, setChecked] = useState<boolean | "indeterminate">(todoTask.isComplete);
+  const [updateTodoTaskFormIsVisible, setUpdateTodoTaskFormIsVisible] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const watchDueDate = watch("dueDate");
+  const categoryById = categoryData?.find(
+    (category: categoryProps) => category.id ===  todoTask.categoryId
+  )
 
   function onSubmit(data: updateTodoTaskProps) {
-
     const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
     api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
 
@@ -56,7 +57,7 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
       });
     });
 
-    setIsOpen(false);
+    setUpdateTodoTaskFormIsVisible(false);
     reset();
   }
 
@@ -72,42 +73,50 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
   }, [watchDueDate]);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (!updateTodoTaskFormIsVisible) {
       setIsEditing(false);
       reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [updateTodoTaskFormIsVisible]);
 
   function handleCheck(checked: boolean | "indeterminate") {
-    if (checked === true) {
-      api.patch(`/todotasks/${todoTask.id}/mark-as-done`).then(() => {
+    const markAsDone = checked === true;
+    const markAsUndone = checked === false;
 
-        setTodoTaskData((prev) => {
-          return prev?.map(item => {
-            if (item.id === todoTask.id) {
-              updateSidebar();
-              return {...item, isComplete: true};
-            }
-            return item;
-          });
+    const markAsDoneEndpoint = `/todotasks/${todoTask.id}/mark-as-done`;
+    const markAsUndoneEndpoint = `/todotasks/${todoTask.id}/mark-as-undone`;
+
+    const updateTodoTaskData = (isComplete: boolean) => {
+      setTodoTaskData((prev) => {
+        return prev?.map(item => {
+          if (item.id === todoTask.id) {
+            updateSidebar();
+            return {...item, isComplete};
+          }
+          return item;
         });
       });
-    } else if (checked === false) {
-      api.patch(`/todotasks/${todoTask.id}/mark-as-undone`).then(() => {
+    };
 
-        setTodoTaskData((prev) => {
-          return prev?.map(item => {
-            if (item.id === todoTask.id) {
-              updateSidebar();
-              return {...item, isComplete: false};
-            }
-            return item;
-          });
-        });
+    const markAsDoneRequest = () => {
+      api.patch(markAsDoneEndpoint).then(() => {
+        updateTodoTaskData(true);
       });
+    };
+
+    const markAsUndoneRequest = () => {
+      api.patch(markAsUndoneEndpoint).then(() => {
+        updateTodoTaskData(false);
+      });
+    };
+
+    if (markAsDone) {
+      markAsDoneRequest();
+    } else if (markAsUndone) {
+      markAsUndoneRequest();
     }
-    
+
     setChecked(checked);
   }
 
@@ -119,10 +128,10 @@ const TodoTaskCard = ({ todoTask }: { todoTask: todoTaskProps }) => {
           <Checkbox color={categoryById?.color || "#fff"} checked={checked} handleCheck={handleCheck}/>
           <p>{todoTask.name}</p>
         </Styled.TaskData>
-        <DotsThreeOutlineVertical size={24} weight="fill" onClick={() => setIsOpen(prevState => !prevState)}/>
+        <DotsThreeOutlineVertical size={24} weight="fill" onClick={() => setUpdateTodoTaskFormIsVisible(prevState => !prevState)}/>
       </Styled.TaskHeader>
       {
-        isOpen &&
+        updateTodoTaskFormIsVisible &&
           <Styled.Form onSubmit={handleSubmit(onSubmit)}>
               <DateSelector date={todoTask.dueDate} register={register}/>
 

@@ -22,12 +22,9 @@ const ScrollareaRoot = styled(ScrollArea.Root)`
 
     
     > * {
-      cursor: pointer;
       display: flex !important;
       flex-direction: column;
       gap: 0.5rem;
-
-
     }
  }
 

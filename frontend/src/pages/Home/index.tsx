@@ -7,7 +7,6 @@ import * as Styled from "./styles";
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todas as atividades");
 
-
   return (
     <Styled.Container>
       <Sidebar setSelectedCategory={(catergory) => setSelectedCategory(catergory)} />
