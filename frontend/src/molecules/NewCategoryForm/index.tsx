@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Eyedropper, X } from "@phosphor-icons/react";
 import * as Popover from "@radix-ui/react-popover";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import api from "../../utils/Axios";
 import { categoryProps } from "../../utils/Props";
 import * as Styled from "./styles";
+import { ToastContext } from "../../utils/toastContext";
 
 const createCategorySchema = z.object({
   name: z.string().max(20),
@@ -35,6 +36,7 @@ interface NewCategoryFormProps {
 
 const NewCategoryForm = ({ isVisible, NewCategoryFormInvisible, AddCategory }: NewCategoryFormProps) => {
   const [selectedColor, setSelectedColor] = useState<string>("#fff");
+  const { addToast } = useContext(ToastContext);
   const { register, handleSubmit, reset } = useForm<createCategoryProps>({
     resolver: zodResolver(createCategorySchema),
   });
@@ -43,7 +45,13 @@ const NewCategoryForm = ({ isVisible, NewCategoryFormInvisible, AddCategory }: N
     data.color = selectedColor;
     
     api.post("/categories", data).then((response) => {
-      AddCategory(response.data.data[0]);
+      if (response.data.success) {
+        AddCategory(response.data.data[0]);
+
+        addToast({type: "success", message: "Categoria criada com sucesso" });
+      } else {
+        addToast({type: "error", message: response.data.data[0].message || "Erro ao criar categoria"});
+      }
     })
 
     handleFormReset();

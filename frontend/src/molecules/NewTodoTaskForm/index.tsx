@@ -10,6 +10,7 @@ import { DataContext } from '../../utils/dataContext';
 import CategorySelector from '../CategorySelector';
 import DateSelector from '../DateSelector';
 import * as Styled from './styles';
+import { ToastContext } from '../../utils/toastContext';
 
 const createTodoTaskSchema = z.object({
   name: z.string().max(40, {message: "O nome da atividade deve ter no máximo 40 caracteres"}),
@@ -28,6 +29,7 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
   const { register, control, handleSubmit, reset, formState: {errors} } = useForm<createTodoTaskProps>({
     resolver: zodResolver(createTodoTaskSchema)
   });
+  const { addToast } = useContext(ToastContext);
   const { setTodoTaskData, updateSidebar } = useContext(DataContext);
 
   function handleFormSubmit(data: createTodoTaskProps) {
@@ -35,8 +37,15 @@ function NewTodoTaskModal({open, closeModal} : {open: boolean, closeModal: () =>
     const createTodoTask = {...data, dueDate: new Date(data.dueDate).toISOString(), categoryId: parseInt(data.categoryId)}
 
     api.post('/todotasks', createTodoTask).then(response => {
-      setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
-      updateSidebar();
+
+      if (response.data.success) {
+        setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
+        updateSidebar();
+
+        addToast({type: "success", message: "Atividade criada com sucesso" });
+      } else {
+        addToast({type: "error", message: response.data.data[0].message || "Erro ao criar atividade"});
+      }
     });
 
     reset();
