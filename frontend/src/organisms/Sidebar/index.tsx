@@ -1,5 +1,6 @@
 import { CalendarBlank, Check, House } from "@phosphor-icons/react";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { useContext, useState } from "react";
 import CategorySidebarItem from "../../molecules/CategorySidebarItem";
 import NewCategoryForm from "../../molecules/NewCategoryForm";
@@ -15,6 +16,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 interface sidebarProps {
   setSelectedCategory: (category: string) => void;
 }
+  dayjs.extend(utc);
 
 const Sidebar = ({setSelectedCategory} : sidebarProps) => {
   const { categoryData, categoriesTasksAmount, setCategoryData, setTodoTaskData } = useContext(DataContext);
@@ -37,7 +39,8 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
           selectedCategory = "Todas as atividades";
           break;
         case "today":
-          filteredData = parsedData.filter((todoTask) => dayjs().isSame(todoTask.dueDate, "day"));
+          filteredData = parsedData.filter(
+            (todoTask) => dayjs.utc(todoTask.dueDate).format('YYYY-MM-DD') === dayjs.utc().format('YYYY-MM-DD'));
           selectedCategory = "Para hoje";
           break;
         case "completed":

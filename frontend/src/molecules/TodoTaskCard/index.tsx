@@ -43,43 +43,6 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
     (category: categoryProps) => category.id ===  todoTask.categoryId
   )
 
-  function onSubmit(data: updateTodoTaskProps) {
-    const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
-    api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
-
-      setTodoTaskData((prev) => {
-        return prev?.map(item => {
-          if (item.id === todoTask.id) {
-            return {...item, dueDate: response.data.data[0].dueDate};
-          }
-          return item;
-        });
-      });
-    });
-
-    setUpdateTodoTaskFormIsVisible(false);
-    reset();
-  }
-
-  useEffect(() => {
-    if (!watchDueDate) return;
-
-
-    if (watchDueDate !== todoTask.dueDate.split('T')[0]) {
-
-      setIsEditing(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchDueDate]);
-
-  useEffect(() => {
-    if (!updateTodoTaskFormIsVisible) {
-      setIsEditing(false);
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateTodoTaskFormIsVisible]);
-
   function handleCheck(checked: boolean | "indeterminate") {
     const markAsDone = checked === true;
     const markAsUndone = checked === false;
@@ -119,6 +82,47 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
 
     setChecked(checked);
   }
+
+  function onSubmit(data: updateTodoTaskProps) {
+
+    const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
+
+    console.log(updateTodoTask);
+
+    api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
+
+      setTodoTaskData((prev) => {
+        return prev?.map(item => {
+          if (item.id === todoTask.id) {
+            return {...item, dueDate: response.data.data[0].dueDate};
+          }
+          return item;
+        });
+      });
+    });
+
+    setUpdateTodoTaskFormIsVisible(false);
+    reset();
+  }
+
+  useEffect(() => {
+    if (!watchDueDate) return;
+
+
+    if (watchDueDate !== todoTask.dueDate.split('T')[0]) {
+
+      setIsEditing(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDueDate]);
+
+  useEffect(() => {
+    if (!updateTodoTaskFormIsVisible) {
+      setIsEditing(false);
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateTodoTaskFormIsVisible]);
 
   return (
     <Styled.Container>
