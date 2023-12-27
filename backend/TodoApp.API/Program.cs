@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TodoApp.API.Middlewares;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs;
 
@@ -45,6 +46,8 @@ builder.Services.AddMvcCore().ConfigureApiBehaviorOptions(options => {
         });
 
 
+builder.Services.AddTransient<ErrorResponseMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,6 +62,8 @@ app.UseCors(allowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ErrorResponseMiddleware>();
 
 app.MapControllers();
 

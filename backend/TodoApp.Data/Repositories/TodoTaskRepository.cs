@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using FluentResults;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs.TodoTask;
@@ -59,14 +60,14 @@ public class TodoTaskRepository : ITodoTaskRepository
         return await _context.TodoTasks.ToListAsync();
     }
 
-    public async Task<TodoTask> GetAsync(int id)
+    public async Task<Result<TodoTask>> GetAsync(int id)
     {
         var todoTaskToGet = await _context.TodoTasks.FindAsync(id);
         
         if (todoTaskToGet == null)
-            throw new Exception("TodoTask to get not found");
+            return Result.Fail<TodoTask>("TodoTask to get not found");
 
-        return todoTaskToGet;
+        return Result.Ok(todoTaskToGet);
     }
     
     public async Task<IEnumerable<TodoTask>> GetAsync(Expression<Func<TodoTask, bool>> lambda)

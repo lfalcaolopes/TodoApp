@@ -101,6 +101,7 @@ public class TodoTaskHandler : ITodoTaskHandler
     {
         try
         {
+            Console.WriteLine(command);
             command.Id = todoTaskId;
             var todoTaskUpdated = await _repository.UpdateAsync(command);
             

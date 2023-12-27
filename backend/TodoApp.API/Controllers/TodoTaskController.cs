@@ -55,6 +55,7 @@ public class TodoTaskController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<ResponseDto> Put([FromBody] UpdateTodoTaskDto command, [FromRoute] int id)
     {
+        Console.WriteLine(command);
         var handler = new TodoTaskHandler(new TodoTaskRepository(_context));
         var result = await handler.HandleAsync(command, id);
         return result;
