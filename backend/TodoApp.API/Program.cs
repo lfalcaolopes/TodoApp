@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TodoApp.API.Middlewares;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs;
+using TodoApp.Domain;
+using TodoApp.Data;
 
 var allowSpecificOrigins = "_allowSpecificOrigins";
 
@@ -47,6 +49,9 @@ builder.Services.AddMvcCore().ConfigureApiBehaviorOptions(options => {
 
 
 builder.Services.AddTransient<ErrorResponseMiddleware>();
+builder.Services
+    .AddDomainServices()
+    .AddDataServices();
 
 var app = builder.Build();
 
