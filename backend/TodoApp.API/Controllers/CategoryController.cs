@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoApp.Data.Context;
-using TodoApp.Data.Repositories;
-using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.Category;
-using TodoApp.Domain.Handlers;
+using TodoApp.Domain.Interfaces.Handlers;
 
 namespace TodoApp.API.Controllers;
 
@@ -11,42 +8,38 @@ namespace TodoApp.API.Controllers;
 [Route("v1/categories")]
 public class CategoryController : ControllerBase
 {
-    private readonly TodoDataContext _context;
+    private readonly ICategoryHandler _handler;
     
-    public CategoryController(TodoDataContext context)
+    public CategoryController(ICategoryHandler categoryHandler)
     {
-        _context = context;
+        _handler = categoryHandler;
     }
     
     [HttpGet]
-    public async Task<ResponseDto> Get()
+    public async Task<ActionResult<ResponseCategoryDto>> Get(CancellationToken cancellationToken)
     {
-        var handler = new CategoryHandler(new CategoryRepository(_context));
-        var result = await handler.HandleAsync(new GetAllCategoriesDto());
-        return result;
+        var result = await _handler.HandleAsync(new GetAllCategoriesDto(), cancellationToken);
+        return Ok(result);
     }
     
     [HttpPost]
-    public async Task<ResponseDto> Post([FromBody] CreateCategoryDto command)
+    public async Task<ActionResult<ResponseCategoryDto>> Post([FromBody] CreateCategoryDto command, CancellationToken cancellationToken)
     {
-        var handler = new CategoryHandler(new CategoryRepository(_context));
-        var result = await handler.HandleAsync(command);
-        return result;
+        var result = await _handler.HandleAsync(command, cancellationToken);
+        return Ok(result);
     }
     
     [HttpPut("{id:int}")]
-    public async Task<ResponseDto> Put([FromBody] UpdateCategoryDto command, [FromRoute] int id)
+    public async Task<ActionResult<ResponseCategoryDto>> Put([FromBody] UpdateCategoryDto command, [FromRoute] int id, CancellationToken cancellationToken)
     {
-        var handler = new CategoryHandler(new CategoryRepository(_context));
-        var result = await handler.HandleAsync(command, id);
-        return result;
+        var result = await _handler.HandleAsync(command, id, cancellationToken);
+        return Ok(result);
     }
     
     [HttpDelete("{id:int}")]
-    public async Task<ResponseDto> Delete([FromRoute] int id)
+    public async Task<ActionResult<ResponseCategoryDto>> Delete([FromRoute] int id, CancellationToken cancellationToken)
     {
-        var handler = new CategoryHandler(new CategoryRepository(_context));
-        var result = await handler.HandleAsync(new DeleteCategoryDto(id));
-        return result;
+        var result = await _handler.HandleAsync(new DeleteCategoryDto(id), cancellationToken);
+        return Ok(result);
     }
 }
