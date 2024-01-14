@@ -8,7 +8,7 @@ public class TodoTask
     public bool IsComplete { get; set; }
     public DateTime DueDate { get; set; }
     public int CategoryId { get; set; }
-    public virtual Category? Category { get; set; }
+    public Category? Category { get; set; }
 
     public TodoTask(int id, string name, DateTime dueDate, int categoryId, bool isComplete = false)
     {
