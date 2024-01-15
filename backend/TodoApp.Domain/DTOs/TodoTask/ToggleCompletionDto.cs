@@ -2,13 +2,12 @@
 
 namespace TodoApp.Domain.DTOs.TodoTask;
 
-public class MarkAsDoneTodoTaskDto
+public class ToggleCompletionDto
 {
     [Required(ErrorMessage = "Id is required")]
     public int Id { get; set; }
-    public bool IsComplete { get; set; } = true;
     
-    public MarkAsDoneTodoTaskDto(int id)
+    public ToggleCompletionDto(int id)
     {
         Id = id;
     }

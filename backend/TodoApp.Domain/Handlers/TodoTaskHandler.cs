@@ -146,11 +146,11 @@ public class TodoTaskHandler : ITodoTaskHandler
         return todoTaskDeleted.Value;
     }
 
-    public async Task<ResponseTodoTaskDto> HandleAsync(MarkAsDoneTodoTaskDto command, CancellationToken cancellationToken)
+    public async Task<ResponseTodoTaskDto> HandleAsync(ToggleCompletionDto command, CancellationToken cancellationToken)
     {
-        var todoTaskToMarkAsDone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
+        var todoTaskToToggleCompletion = new UpdateTodoTaskDto(command.Id, null, null, true);
         
-        var completedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsDone, cancellationToken);
+        var completedTodoTask = await _repository.UpdateAsync(todoTaskToToggleCompletion, cancellationToken);
 
         if(completedTodoTask.IsFailed)
         {
@@ -164,24 +164,5 @@ public class TodoTaskHandler : ITodoTaskHandler
 
         return completedTodoTask.Value;
         
-    }
-
-    public async Task<ResponseTodoTaskDto> HandleAsync(MarkAsUndoneTodoTaskDto command, CancellationToken cancellationToken)
-    {
-        var todoTaskToMarkAsUndone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
-        
-        var uncompletedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsUndone, cancellationToken);
-        
-        if(uncompletedTodoTask.IsFailed)
-        {
-            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
-            {
-                Title = "TodoTask not updated",
-                Detail = "TodoTask not updated",
-                Status = StatusCodes.Status400BadRequest
-            });
-        }
-
-        return uncompletedTodoTask.Value;
     }
 }

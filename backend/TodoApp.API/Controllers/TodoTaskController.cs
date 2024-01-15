@@ -62,18 +62,10 @@ public class TodoTaskController : ControllerBase
         return Ok(result);
     }
     
-    [HttpPatch("{id:int}/mark-as-done")]
-    public async Task<ActionResult<ResponseTodoTaskDto>> MarkAsDone([FromRoute] int id, CancellationToken cancellationToken)
+    [HttpPatch("{id:int}/toggle-completion")]
+    public async Task<ActionResult<ResponseTodoTaskDto>> ToggleCompletion([FromRoute] int id, CancellationToken cancellationToken)
     {
-        var result = await _handler.HandleAsync(new MarkAsDoneTodoTaskDto(id), cancellationToken);
-
-        return Ok(result);
-    }
-    
-    [HttpPatch("{id:int}/mark-as-undone")]
-    public async Task<ActionResult<ResponseTodoTaskDto>>AsUndone([FromRoute] int id, CancellationToken cancellationToken)
-    {
-        var result = await _handler.HandleAsync(new MarkAsUndoneTodoTaskDto(id), cancellationToken);
+        var result = await _handler.HandleAsync(new ToggleCompletionDto(id), cancellationToken);
 
         return Ok(result);
     }

@@ -12,13 +12,13 @@ public class UpdateTodoTaskDto
     public string? Name { get; set; }
     [DateInFuture]
     public DateTime? DueDate { get; set; }
-    public bool? IsComplete { get; set; }
+    public bool? ToggleIsComplete { get; set; }
     
-    public UpdateTodoTaskDto(int id, string? name, DateTime? dueDate, bool? isComplete)
+    public UpdateTodoTaskDto(int id, string? name, DateTime? dueDate, bool? shouldToggleIsComplete)
     {
         Id = id;
         Name = name;
         DueDate = dueDate;
-        IsComplete = isComplete;
+        ToggleIsComplete = shouldToggleIsComplete;
     }
 }

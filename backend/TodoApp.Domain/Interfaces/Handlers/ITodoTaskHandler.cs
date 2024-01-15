@@ -12,6 +12,5 @@ public interface ITodoTaskHandler
    Task<IEnumerable<ResponseTodoTaskDto>> HandleAsync(SearchTodoTaskDto command, CancellationToken cancellationToken);
    Task<ResponseTodoTaskDto> HandleAsync(UpdateTodoTaskDto command, int id, CancellationToken cancellationToken);
    Task<ResponseTodoTaskDto> HandleAsync(DeleteTodoTaskDto command, CancellationToken cancellationToken);
-   Task<ResponseTodoTaskDto> HandleAsync(MarkAsDoneTodoTaskDto command, CancellationToken cancellationToken);
-   Task<ResponseTodoTaskDto> HandleAsync(MarkAsUndoneTodoTaskDto command, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(ToggleCompletionDto command, CancellationToken cancellationToken);
 }

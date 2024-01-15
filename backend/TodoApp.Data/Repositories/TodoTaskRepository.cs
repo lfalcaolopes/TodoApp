@@ -39,7 +39,9 @@ public class TodoTaskRepository : ITodoTaskRepository
 
         todoTaskToUpdate.Name = todoTask.Name ?? todoTaskToUpdate.Name;
         todoTaskToUpdate.DueDate = todoTask.DueDate ?? todoTaskToUpdate.DueDate;
-        todoTaskToUpdate.IsComplete = todoTask.IsComplete ?? todoTaskToUpdate.IsComplete;
+        
+        if (todoTask.ToggleIsComplete == true)
+            todoTaskToUpdate.IsComplete = !todoTaskToUpdate.IsComplete;
 
         await _context.SaveChangesAsync(cancellationToken);
 
