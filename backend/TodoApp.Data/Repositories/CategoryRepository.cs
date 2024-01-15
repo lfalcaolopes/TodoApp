@@ -1,3 +1,5 @@
+using FluentResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs.Category;
@@ -14,45 +16,47 @@ public class CategoryRepository : ICategoryRepository
     {
         _context = context;
     }
-    public async Task<Category> CreateAsync(Category category)
+    public async Task<Result<ResponseCategoryDto>> CreateAsync(Category category, CancellationToken cancellationToken)
     {
-        var createdCategory = await _context.Categories.AddAsync(category);
-        await _context.SaveChangesAsync();
+        var createdCategory = await _context.Categories.AddAsync(category, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
 
-        return createdCategory.Entity;
+        return Result.Ok(new ResponseCategoryDto(createdCategory.Entity.Id, createdCategory.Entity.Name, createdCategory.Entity.Color));
     }
 
-    public async Task<Category> DeleteAsync(DeleteCategoryDto category)
+    public async Task<Result<ResponseCategoryDto>> DeleteAsync(DeleteCategoryDto category, CancellationToken cancellationToken)
     {
-        var categoryToDelete = await _context.Categories.FindAsync(category.Id);
+        var categoryToDelete = await _context.Categories.FindAsync(new object?[] { category.Id }, cancellationToken);
 
         if (categoryToDelete == null)
             throw new Exception("Category to delete not found");
 
         _context.Categories.Remove(categoryToDelete);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
-        return categoryToDelete;
+        return Result.Ok(new ResponseCategoryDto(categoryToDelete.Id, categoryToDelete.Name, categoryToDelete.Color));
     }
 
-    public async Task<IEnumerable<Category>> GetAsync()
+    public async Task<Result<IEnumerable<ResponseCategoryDto>>> GetAsync(CancellationToken cancellationToken)
     {
-        return await _context.Categories.ToListAsync();
+        var categories = await _context.Categories.ToListAsync(cancellationToken);
+
+        return Result.Ok(categories.Select(category => new ResponseCategoryDto(category.Id, category.Name, category.Color)));
     }
 
-    public async Task<Category> GetAsync(int id)
+    public async Task<Result<ResponseCategoryDto>> GetAsync(int id, CancellationToken cancellationToken)
     {
-        var categoryToGet = await _context.Categories.FindAsync(id);
+        var categoryToGet = await _context.Categories.FindAsync(new object?[] { id }, cancellationToken);
 
         if (categoryToGet == null)
             throw new Exception("Category to get not found");
 
-        return categoryToGet;
+        return Result.Ok(new ResponseCategoryDto(categoryToGet.Id, categoryToGet.Name, categoryToGet.Color));
     }
 
-    public async Task<Category> UpdateAsync(UpdateCategoryDto category)
+    public async Task<Result<ResponseCategoryDto>> UpdateAsync(UpdateCategoryDto category, CancellationToken cancellationToken)
     {
-        var categoryToUpdate = await _context.Categories.FindAsync(category.Id);
+        var categoryToUpdate = await _context.Categories.FindAsync(new object?[] { category.Id }, cancellationToken);
 
         if (categoryToUpdate == null)
             throw new Exception("Category to update not found");
@@ -60,8 +64,8 @@ public class CategoryRepository : ICategoryRepository
         categoryToUpdate.Name = category.Name ?? categoryToUpdate.Name;
         categoryToUpdate.Color = category.Color ?? categoryToUpdate.Color;
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
-        return categoryToUpdate;
+        return Result.Ok(new ResponseCategoryDto(categoryToUpdate.Id, categoryToUpdate.Name, categoryToUpdate.Color));
     }
 }

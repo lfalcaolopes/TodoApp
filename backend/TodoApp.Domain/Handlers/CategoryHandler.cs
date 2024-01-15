@@ -1,6 +1,8 @@
-﻿using TodoApp.Domain.DTOs;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.Domain.DTOs.Category;
 using TodoApp.Domain.Entities;
+using TodoApp.Domain.Exceptions;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Repositories;
 
@@ -15,61 +17,74 @@ public class CategoryHandler : ICategoryHandler
         _repository = repository;
     }
 
-    public async Task<ResponseDto> HandleAsync(CreateCategoryDto command)
+    public async Task<ResponseCategoryDto> HandleAsync(CreateCategoryDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var categoryToCreate = await _repository.CreateAsync(new Category(0, command.Name, command.Color));
+        var categoryToCreate = await _repository.CreateAsync(new Category(0, command.Name, command.Color), cancellationToken);
 
-            return new ResponseDto(true, new[] { categoryToCreate });
-        }
-        catch (Exception ex)
+        if(categoryToCreate.IsFailed)
         {
-            return new ResponseDto(false, new[] { ex.Message });
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "Category not created",
+                Detail = "Category not created",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+        
+        return categoryToCreate.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(GetAllCategoriesDto command)
+    public async Task<IEnumerable<ResponseCategoryDto>> HandleAsync(GetAllCategoriesDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var categories = await _repository.GetAsync();
+        var categories = await _repository.GetAsync(cancellationToken);
 
-            return new ResponseDto(true, categories);
-        }
-        catch (Exception ex)
+        if(categories.IsFailed)
         {
-            return new ResponseDto(false, new[] { ex.Message });
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "Categories not found",
+                Detail = "Categories not found",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+
+        return categories.Value;
+        
     }
 
-    public async Task<ResponseDto> HandleAsync(UpdateCategoryDto command, int categoryId)
+    public async Task<ResponseCategoryDto> HandleAsync(UpdateCategoryDto command, int categoryId, CancellationToken cancellationToken)
     {
-        try
-        {
-            command.Id = categoryId;
+        command.Id = categoryId;
 
-            var categoryUpdated = await _repository.UpdateAsync(command);
+        var categoryUpdated = await _repository.UpdateAsync(command, cancellationToken);
 
-            return new ResponseDto(true, new[] { categoryUpdated });
-        }
-        catch (Exception ex)
+        if(categoryUpdated.IsFailed)
         {
-            return new ResponseDto(false, new[] { ex.Message });
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "Category not updated",
+                Detail = "Category not updated",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+
+        return categoryUpdated.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(DeleteCategoryDto command)
+    public async Task<ResponseCategoryDto> HandleAsync(DeleteCategoryDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var categoryDeleted = await _repository.DeleteAsync(command);
+        var categoryDeleted = await _repository.DeleteAsync(command, cancellationToken);
 
-            return new ResponseDto(true, new[] { categoryDeleted });
-        }
-        catch (Exception ex)
+        if(categoryDeleted.IsFailed)
         {
-            return new ResponseDto(false, new[] { ex.Message });
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "Category not deleted",
+                Detail = "Category not deleted",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+
+        return categoryDeleted.Value;
     }
 }

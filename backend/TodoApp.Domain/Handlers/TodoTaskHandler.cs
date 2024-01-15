@@ -1,6 +1,10 @@
-﻿using TodoApp.Domain.DTOs;
+﻿using FluentResults;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
+using TodoApp.Domain.Exceptions;
 using TodoApp.Domain.Interfaces.Handlers;
 using TodoApp.Domain.Interfaces.Repositories;
 
@@ -15,147 +19,169 @@ public class TodoTaskHandler : ITodoTaskHandler
         _repository = repository;
     }
     
-    public async Task<ResponseDto> HandleAsync(CreateTodoTaskDto command)
+    public async Task<ResponseTodoTaskDto> HandleAsync(CreateTodoTaskDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(0, command.Name, command.DueDate, command.CategoryId));
+        var todoTaskToCreate = await _repository.CreateAsync(new TodoTask(0, command.Name, command.DueDate, command.CategoryId), cancellationToken);
 
-            return new ResponseDto(true, new []{todoTaskToCreate});
-        }
-        catch (Exception ex)
+        if(todoTaskToCreate.IsFailed)
         {
-            return new ResponseDto(false, new []{ex.Message});
+            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
+            {
+                Title = "TodoTask not created",
+                Detail = "TodoTask not created",
+                Status = StatusCodes.Status400BadRequest
+            });
         }
+
+        return todoTaskToCreate.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(GetByIdTodoTaskDto command)
+    public async Task<ResponseTodoTaskDto> HandleAsync(GetByIdTodoTaskDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            var todoTask = await _repository.GetAsync(command.Id);
-            
-            return new ResponseDto(true, new []{todoTask});
-        }
-        catch (Exception ex)
-        {
-            return new ResponseDto(false, new []{ex.Message});
-        }
-    }
+        var todoTaskResult = await _repository.GetAsync(command.Id, cancellationToken);
 
-    public async Task<ResponseDto> HandleAsync(GetAllTodoTaskDto command)
-    {
-        try
+        if(todoTaskResult.IsFailed)
         {
-            var todoTasks = await _repository.GetAsync();
-            
-            return new ResponseDto(true, todoTasks);
-        }
-        catch (Exception ex)
-        {
-            return new ResponseDto(false, new []{ex.Message});
-        }
-    }
-
-    public async Task<ResponseDto> HandleAsync(SearchTodoTaskDto command)
-    {
-        try
-        {
-            if (command.CategoryId != null)
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
             {
-                var todoTasks = await _repository.GetAsync(x => x.CategoryId == command.CategoryId);
-
-                return new ResponseDto(true, todoTasks);
-            }
-
-            if (command.IsComplete != null)
-            {
-                var todoTasks = await _repository.GetAsync(x => x.IsComplete == command.IsComplete);
-
-                return new ResponseDto(true, todoTasks);
-            }
-
-            if (command.IsDueToday == true)
-            {
-                var todoTasks = await _repository.GetAsync(x => (x.DueDate.Date - DateTime.Today).TotalDays == 0);
-
-                return new ResponseDto(true, todoTasks);
-            }
-
-            if (command.Name != null)
-            {
-                var todoTasks = await _repository.GetAsync(x => x.Name.ToUpper().Contains(command.Name.ToUpper()));
-
-                return new ResponseDto(true, todoTasks);
-            }
-        }
-        catch (Exception ex)
-        {
-            return new ResponseDto(false, new []{ex.Message});
+                Title = "TodoTask not found",
+                Detail = "TodoTask not found",
+                Status = StatusCodes.Status404NotFound
+            });
         }
         
-        return new ResponseDto(false, new []{ "Search parameters not valid"});
+        return todoTaskResult.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(UpdateTodoTaskDto command, int todoTaskId)
+    public async Task<IEnumerable<ResponseTodoTaskDto>> HandleAsync(GetAllTodoTaskDto command, CancellationToken cancellationToken)
     {
-        try
-        {
-            Console.WriteLine(command);
-            command.Id = todoTaskId;
-            var todoTaskUpdated = await _repository.UpdateAsync(command);
+        var todoTasks = await _repository.GetAsync(cancellationToken);
             
-            return new ResponseDto(true, new []{todoTaskUpdated});
-        }
-        catch (Exception ex)
+
+        if(todoTasks.IsFailed)
         {
-            return new ResponseDto(false, new []{ex.Message});
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "TodoTask not found",
+                Detail = "TodoTask not found",
+                Status = StatusCodes.Status404NotFound
+            });
         }
+        
+        return todoTasks.Value;
+   }
+
+    public async Task<IEnumerable<ResponseTodoTaskDto>> HandleAsync(SearchTodoTaskDto command, CancellationToken cancellationToken)
+    {
+        var todoTasks = new Result<IEnumerable<ResponseTodoTaskDto>>();
+
+        switch (command)
+        {
+            case { CategoryId: {} categoryId }:
+                todoTasks = await _repository.GetAsync(x => x.CategoryId == categoryId, cancellationToken);
+                break;
+            case { IsComplete: {} isComplete }:
+                todoTasks = await _repository.GetAsync(x => x.IsComplete == isComplete, cancellationToken);
+                break;
+            case { IsDueToday: true }:
+                todoTasks = await _repository.GetAsync(x => (x.DueDate.Date - DateTime.Today).TotalDays == 0, cancellationToken);
+                break;
+            case { Name: {} name }:
+                todoTasks = await _repository.GetAsync(x => x.Name.ToUpper().Contains(name.ToUpper()), cancellationToken);
+                break;
+            default:
+                throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+                {
+                    Title = "Search parameters not valid",
+                    Detail = "Search parameters not valid",
+                    Status = StatusCodes.Status404NotFound
+                });
+        }
+
+        if (todoTasks.IsFailed) 
+        {
+            throw new ErrorResponseException(StatusCodes.Status404NotFound, new ProblemDetails
+            {
+                Title = "TodoTask not found",
+                Detail = "TodoTask not found",
+                Status = StatusCodes.Status404NotFound
+            });
+        }
+
+        return todoTasks.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(DeleteTodoTaskDto command)
+    public async Task<ResponseTodoTaskDto> HandleAsync(UpdateTodoTaskDto command, int todoTaskId, CancellationToken cancellationToken)
     {
-        try
+        command.Id = todoTaskId;
+        var todoTaskUpdated = await _repository.UpdateAsync(command, cancellationToken);
+
+        if(todoTaskUpdated.IsFailed)
         {
-            var todoTaskDeleted = await _repository.DeleteAsync(command);
-            
-            return new ResponseDto(true, new []{todoTaskDeleted});
+            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
+            {
+                Title = "TodoTask not updated",
+                Detail = "TodoTask not updated",
+                Status = StatusCodes.Status400BadRequest
+            });
         }
-        catch (Exception ex)
-        {
-            return new ResponseDto(false, new []{ex.Message});
-        }
+        
+        return todoTaskUpdated.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(MarkAsDoneTodoTaskDto command)
+    public async Task<ResponseTodoTaskDto> HandleAsync(DeleteTodoTaskDto command, CancellationToken cancellationToken)
     {
-        try
+        var todoTaskDeleted = await _repository.DeleteAsync(command, cancellationToken);
+
+        if(todoTaskDeleted.IsFailed)
         {
-            var todoTaskToMarkAsDone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
-            
-            var completedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsDone);
-            
-            return new ResponseDto(true, new []{completedTodoTask});
+            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
+            {
+                Title = "TodoTask not deleted",
+                Detail = "TodoTask not deleted",
+                Status = StatusCodes.Status400BadRequest
+            });
         }
-        catch (Exception ex)
-        {
-            return new ResponseDto(false, new []{ex.Message});
-        }
+
+        return todoTaskDeleted.Value;
     }
 
-    public async Task<ResponseDto> HandleAsync(MarkAsUndoneTodoTaskDto command)
+    public async Task<ResponseTodoTaskDto> HandleAsync(MarkAsDoneTodoTaskDto command, CancellationToken cancellationToken)
     {
-        try
+        var todoTaskToMarkAsDone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
+        
+        var completedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsDone, cancellationToken);
+
+        if(completedTodoTask.IsFailed)
         {
-            var todoTaskToMarkAsUndone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
-            
-            var uncompletedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsUndone);
-            
-            return new ResponseDto(true, new []{uncompletedTodoTask});
+            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
+            {
+                Title = "TodoTask not updated",
+                Detail = "TodoTask not updated",
+                Status = StatusCodes.Status400BadRequest
+            });
         }
-        catch (Exception ex)
+
+        return completedTodoTask.Value;
+        
+    }
+
+    public async Task<ResponseTodoTaskDto> HandleAsync(MarkAsUndoneTodoTaskDto command, CancellationToken cancellationToken)
+    {
+        var todoTaskToMarkAsUndone = new UpdateTodoTaskDto(command.Id, null, null, command.IsComplete);
+        
+        var uncompletedTodoTask = await _repository.UpdateAsync(todoTaskToMarkAsUndone, cancellationToken);
+        
+        if(uncompletedTodoTask.IsFailed)
         {
-            return new ResponseDto(false, new []{ex.Message});
+            throw new ErrorResponseException(StatusCodes.Status400BadRequest, new ProblemDetails
+            {
+                Title = "TodoTask not updated",
+                Detail = "TodoTask not updated",
+                Status = StatusCodes.Status400BadRequest
+            });
         }
+
+        return uncompletedTodoTask.Value;
     }
 }
