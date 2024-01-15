@@ -11,7 +11,7 @@ public static class DataDependencyInjection
     public static IServiceCollection AddDataServices(this IServiceCollection services)
     {
         services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
-        services.AddScoped<ICategoryHandler, CategoryHandler>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         return services;
     }
