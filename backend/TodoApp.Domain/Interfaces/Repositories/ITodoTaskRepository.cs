@@ -7,10 +7,10 @@ namespace TodoApp.Domain.Interfaces.Repositories;
 
 public interface ITodoTaskRepository
 {
-    Task<IEnumerable<TodoTask>> GetAsync();
-    Task<Result<TodoTask>> GetAsync(int id);
-    Task<IEnumerable<TodoTask>> GetAsync(Expression<Func<TodoTask, bool>> lambda);
-    Task<TodoTask> CreateAsync(TodoTask todoTask);
-    Task<TodoTask> UpdateAsync(UpdateTodoTaskDto todoTask);
-    Task<TodoTask> DeleteAsync(DeleteTodoTaskDto todoTask);
+    Task<Result<IEnumerable<ResponseTodoTaskDto>>> GetAsync(CancellationToken cancellationToken);
+    Task<Result<ResponseTodoTaskDto>> GetAsync(int id, CancellationToken cancellationToken);
+    Task<Result<IEnumerable<ResponseTodoTaskDto>>> GetAsync(Expression<Func<TodoTask, bool>> lambda, CancellationToken cancellationToken);
+    Task<Result<ResponseTodoTaskDto>> CreateAsync(TodoTask todoTask, CancellationToken cancellationToken);
+    Task<Result<ResponseTodoTaskDto>>UpdateAsync(UpdateTodoTaskDto todoTask, CancellationToken cancellationToken);
+    Task<Result<ResponseTodoTaskDto>> DeleteAsync(DeleteTodoTaskDto todoTask, CancellationToken cancellationToken);
 }

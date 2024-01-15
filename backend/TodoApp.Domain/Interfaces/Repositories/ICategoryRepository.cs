@@ -1,15 +1,15 @@
 
+using FluentResults;
 using TodoApp.Domain.DTOs.Category;
-using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 
 namespace TodoApp.Domain.Interfaces.Repositories;
 
 public interface ICategoryRepository
 {
-    Task<IEnumerable<Category>> GetAsync();
-    Task<Category> GetAsync(int id);
-    Task<Category> CreateAsync(Category category);
-    Task<Category> UpdateAsync(UpdateCategoryDto category);
-    Task<Category> DeleteAsync(DeleteCategoryDto category);
+    Task<Result<IEnumerable<ResponseCategoryDto>>> GetAsync(CancellationToken cancellationToken);
+    Task<Result<ResponseCategoryDto>> GetAsync(int id, CancellationToken cancellationToken);
+    Task<Result<ResponseCategoryDto>> CreateAsync(Category category, CancellationToken cancellationToken);
+    Task<Result<ResponseCategoryDto>> UpdateAsync(UpdateCategoryDto category, CancellationToken cancellationToken);
+    Task<Result<ResponseCategoryDto>> DeleteAsync(DeleteCategoryDto category, CancellationToken cancellationToken);
 }

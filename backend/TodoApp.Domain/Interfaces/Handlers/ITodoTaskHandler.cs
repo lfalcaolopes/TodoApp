@@ -1,16 +1,17 @@
 ﻿using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.TodoTask;
+using TodoApp.Domain.Entities;
 
 namespace TodoApp.Domain.Interfaces.Handlers;
 
 public interface ITodoTaskHandler
 {
-   Task<ResponseDto> HandleAsync(CreateTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(GetByIdTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(GetAllTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(SearchTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(UpdateTodoTaskDto command, int id);
-   Task<ResponseDto> HandleAsync(DeleteTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(MarkAsDoneTodoTaskDto command);
-   Task<ResponseDto> HandleAsync(MarkAsUndoneTodoTaskDto command);
+   Task<ResponseTodoTaskDto> HandleAsync(CreateTodoTaskDto command, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(GetByIdTodoTaskDto command, CancellationToken cancellationToken);
+   Task<IEnumerable<ResponseTodoTaskDto>> HandleAsync(GetAllTodoTaskDto command, CancellationToken cancellationToken);
+   Task<IEnumerable<ResponseTodoTaskDto>> HandleAsync(SearchTodoTaskDto command, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(UpdateTodoTaskDto command, int id, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(DeleteTodoTaskDto command, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(MarkAsDoneTodoTaskDto command, CancellationToken cancellationToken);
+   Task<ResponseTodoTaskDto> HandleAsync(MarkAsUndoneTodoTaskDto command, CancellationToken cancellationToken);
 }
