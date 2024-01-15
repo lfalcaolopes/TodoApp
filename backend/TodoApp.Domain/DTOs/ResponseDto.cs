@@ -10,3 +10,15 @@ public class ResponseDto
         Success = success;
         Data = data;
     }}
+
+
+// using Microsoft.AspNetCore.Mvc;
+
+// namespace TodoApp.Domain.DTOs;
+
+// public class ResponseDto<TResponse>
+// {
+//     public int StatusCode { get; set; }
+//     public TResponse? Data { get; set; }
+//     public ProblemDetails? ProblemDetails { get; set; }
+// }
