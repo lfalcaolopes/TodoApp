@@ -41,13 +41,14 @@ function NewTodoTaskModal({todoTaskFormIsVisible, closeModal} : NewTodoTaskModal
     const createTodoTask = {...data, dueDate: new Date(data.dueDate).toISOString(), categoryId: parseInt(data.categoryId)}
 
     api.post('/todotasks', createTodoTask).then(response => {
-      if (response.data.success) {
-        setTodoTaskData((prev) => [...(prev || []), response.data.data[0]]);
+      console.log("createTask", response)
+      if (response.status === 200) {
+        setTodoTaskData((prev) => [...(prev || []), response.data]);
         updateSidebar();
 
         addToast({type: "success", message: "Atividade criada com sucesso" });
       } else {
-        addToast({type: "error", message: response.data.data[0].message || "Erro ao criar atividade"});
+        addToast({type: "error", message: response.data.message || "Erro ao criar atividade"});
       }
     });
 

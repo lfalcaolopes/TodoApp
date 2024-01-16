@@ -34,7 +34,7 @@ const DataProvider = ({ children }: { children: ReactNode}) => {
 
  function updateSidebar() {
    api.get('/todotasks').then((taskResponse) => {
-     const todoTasksDataForUpdate = todoTaskListSchema.parse(taskResponse.data.data)
+     const todoTasksDataForUpdate = todoTaskListSchema.parse(taskResponse.data)
 
      setCategoriesTasksAmount(new Map<string, number>());
 
@@ -69,12 +69,11 @@ const DataProvider = ({ children }: { children: ReactNode}) => {
 
   useEffect(() => {
     api.get('/categories').then((categoryResponse) => {
-      setCategoryData(categoryListSchema.parse(categoryResponse.data.data))
+      setCategoryData(categoryListSchema.parse(categoryResponse.data))
     })
 
     api.get('/todotasks').then((taskResponse) => {
-
-      setTodoTaskData(todoTaskListSchema.parse(taskResponse.data.data))
+      setTodoTaskData(todoTaskListSchema.parse(taskResponse.data))
     })
 
     updateSidebar();

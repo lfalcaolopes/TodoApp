@@ -23,8 +23,8 @@ const SearchBar = () => {
 
   function onSubmit(data: searchProps) {
     api.get(`/todotasks/search?name=${data.search}`).then(response => {
-      if (response.data.success) {
-        setTodoTaskData(response.data.data);
+      if (response.status === 200) {
+        setTodoTaskData(response.data);
       } else {
         addToast({type: "error", message: "Atividade não encontrada" });
       }

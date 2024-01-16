@@ -44,12 +44,6 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
   )
 
   function handleCheck(checked: boolean | "indeterminate") {
-    const markAsDone = checked === true;
-    const markAsUndone = checked === false;
-
-    const markAsDoneEndpoint = `/todotasks/${todoTask.id}/mark-as-done`;
-    const markAsUndoneEndpoint = `/todotasks/${todoTask.id}/mark-as-undone`;
-
     const updateTodoTaskData = (isComplete: boolean) => {
       setTodoTaskData((prev) => {
         return prev?.map(item => {
@@ -62,23 +56,9 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
       });
     };
 
-    const markAsDoneRequest = () => {
-      api.patch(markAsDoneEndpoint).then(() => {
-        updateTodoTaskData(true);
-      });
-    };
-
-    const markAsUndoneRequest = () => {
-      api.patch(markAsUndoneEndpoint).then(() => {
-        updateTodoTaskData(false);
-      });
-    };
-
-    if (markAsDone) {
-      markAsDoneRequest();
-    } else if (markAsUndone) {
-      markAsUndoneRequest();
-    }
+    api.patch(`/todotasks/${todoTask.id}/toggle-completion`).then((response) => {
+      updateTodoTaskData(response.data.isComplete);
+    });
 
     setChecked(checked);
   }
@@ -87,14 +67,13 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
 
     const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
 
-    console.log(updateTodoTask);
-
     api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
+      console.log("TaskCardUpdate", response)
 
       setTodoTaskData((prev) => {
         return prev?.map(item => {
           if (item.id === todoTask.id) {
-            return {...item, dueDate: response.data.data[0].dueDate};
+            return {...item, dueDate: response.data.dueDate};
           }
           return item;
         });

@@ -46,16 +46,17 @@ const NewCategoryForm = ({ isVisible, HideCategoryForm, AddCategory }: NewCatego
     data.color = selectedColor;
     
     api.post("/categories", data).then((response) => {
-      if (response.data.success) {
-        AddCategory(response.data.data[0]);
+      console.log("categoriesForm", response);
+      if (response.status === 200) {
+        AddCategory(response.data);
 
         addToast({type: "success", message: "Categoria criada com sucesso" });
       } else {
-        addToast({type: "error", message: response.data.data[0].message || "Erro ao criar categoria"});
+        addToast({type: "error", message: response.data.message || "Erro ao criar categoria"});
       }
     })
 
-    handleFormReset();
+    handleFormReset(true);
   }
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using TodoApp.Domain.Validations;
 
 namespace TodoApp.Domain.DTOs.TodoTask;
@@ -6,8 +7,8 @@ namespace TodoApp.Domain.DTOs.TodoTask;
 public class UpdateTodoTaskDto
 {
     
-    [Required(ErrorMessage = "Id is required")]
-    public int Id { get; set; }
+    // [Required(ErrorMessage = "Id is required")]
+    public int? Id { get; set; }
     [StringLength(40, ErrorMessage = "Name can't be longer than 40 characters")]
     public string? Name { get; set; }
     [DateInFuture]
@@ -21,4 +22,7 @@ public class UpdateTodoTaskDto
         DueDate = dueDate;
         ToggleIsComplete = shouldToggleIsComplete;
     }
+
+    [JsonConstructor]
+    public UpdateTodoTaskDto(){}
 }

@@ -25,12 +25,11 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
 
   function AddCategory(newCategory: categoryProps) {
     setCategoryData((prev) => [...(prev || []), newCategory]);
-    setCategoryFormIsVisible(true);
   }
 
   function showSpecificCategory(categoryIdentifier?: number | "all" | "today" | "completed") {
     api.get('/todotasks').then((taskResponse) => {
-      const parsedData = todoTaskListSchema.parse(taskResponse.data.data);
+      const parsedData = todoTaskListSchema.parse(taskResponse.data);
       let filteredData = parsedData;
       let selectedCategory = "";
 
