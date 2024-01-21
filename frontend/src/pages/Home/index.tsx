@@ -6,13 +6,18 @@ import * as Styled from "./styles";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todas as atividades");
+  const [sidebarIsVisible, setSidebarIsVisible] = useState(false);
 
   return (
     <Styled.Container>
-      <Sidebar setSelectedCategory={(catergory) => setSelectedCategory(catergory)} />
+      <Sidebar 
+        sidebarIsVisible={sidebarIsVisible} 
+        setSidebarIsVisible={(isOpen: boolean) => setSidebarIsVisible(isOpen)} 
+        setSelectedCategory={(catergory) => setSelectedCategory(catergory)} 
+      />
       
       <Styled.Content>
-        <Header />
+        <Header showSidebar={() => setSidebarIsVisible(true)} />
         {/*<Categories category={categoryData}/>*/}
         <TodoTasks selectedCategory={selectedCategory}/>
         

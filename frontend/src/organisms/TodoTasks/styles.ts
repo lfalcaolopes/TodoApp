@@ -4,13 +4,17 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: clamp(1rem, 1vw, 2rem);
 
   overflow: hidden;
 `;
 
 const Title = styled.h2`
-  font-size: ${({ theme }) => theme.fontSizes.xLarge.toString()};
+  font-size: clamp(
+    2rem,
+    5vw,
+    ${({ theme }) => theme.fontSizes.xLarge.toString()}
+  );
   color: ${({ theme }) => theme.colors.secondaryText.toString()};
   font-weight: bold;
   
@@ -20,7 +24,7 @@ const Title = styled.h2`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: clamp(0.5rem, 1vw, 1rem);
 `;
 
 const NoContent = styled.div`
@@ -42,6 +46,10 @@ const ScrollareaRoot = styled(ScrollArea.Root)`
     height: 100%;
     width: 100%;
     padding-right: 13px;
+    
+    @media (max-width: 490px) {
+      padding-right: 0px;
+    }
   }
 
   .scrollbar {

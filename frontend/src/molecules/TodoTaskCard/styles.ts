@@ -6,9 +6,13 @@ const Container = styled.div`
   
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
   
   padding: 0.5rem 1rem;
+
+  @media (max-width: 490px) {
+    padding: 0.5rem;
+  }
 `;
 
 const TaskHeader = styled.div`
@@ -35,12 +39,13 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0 0.5rem 0.5rem 0.5rem;
-  height: 3.5rem;
 
   gap: 1rem;
 
   button {
     justify-self: flex-end;
+    align-self: center;
+    height: fit-content;
     margin-right: 0.5rem;
   }
 `;

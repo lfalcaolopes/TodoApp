@@ -56,6 +56,8 @@ const Content = styled(Popover.Content)`
   flex-direction: column;
   justify-content: space-between;
 
+  z-index: 1001;
+
   &:focus {
     box-shadow: none;
     outline: none;

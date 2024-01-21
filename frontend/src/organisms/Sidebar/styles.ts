@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 
-const ScrollareaRoot = styled(ScrollArea.Root)`
+const ScrollareaRoot = styled(ScrollArea.Root)<{ $sidebarIsVisible: boolean }>`
   background-color: ${({ theme }) => theme.colors.primaryCard.toString()};
   width: 30rem;
   height: 100%;
@@ -9,8 +9,6 @@ const ScrollareaRoot = styled(ScrollArea.Root)`
   
   padding: 2rem 1.5rem;
   border-radius: 2rem;
-
-
 
   .viewport {
     height: 100%;
@@ -20,13 +18,12 @@ const ScrollareaRoot = styled(ScrollArea.Root)`
     flex-direction: column;
     gap: 0.75rem;
 
-    
     > * {
       display: flex !important;
       flex-direction: column;
       gap: 0.5rem;
     }
- }
+  }
 
   .scrollbar {
     display: flex;
@@ -54,6 +51,21 @@ const ScrollareaRoot = styled(ScrollArea.Root)`
     background: ${({ theme }) => theme.colors.secondaryCard.toString()};
     border-radius: 1rem;
     position: relative;
+  }
+
+  @media (max-width: 991px) {
+    display: ${({ $sidebarIsVisible }) => $sidebarIsVisible ? 'flex' : 'none'};
+    width: clamp(20rem, 40vw, 30rem);
+    padding: 24px 16px;
+
+    position: absolute !important;
+    top: 0;
+    left: 0;
+
+    border-radius: 0;
+    z-index: 1000;
+
+    box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.6);
   }
 `;
 

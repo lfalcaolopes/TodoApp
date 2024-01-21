@@ -6,7 +6,7 @@ const Container = styled.div`
   
   &:after {
     position: absolute;
-    top: 2px;
+    top: clamp(0px, 0.1vw, 2px);
     right: 5px;
     content: "📅";
     font-size: 20px;
@@ -15,13 +15,13 @@ const Container = styled.div`
 `;
 
 const Date = styled.input.attrs({type: "date"})`
-   background-color: ${({ theme }) => theme.colors.secondaryCard.toString()};
+  background-color: ${({ theme }) => theme.colors.secondaryCard.toString()};
   font-size: ${({ theme }) => theme.fontSizes.xSmall.toString()};
   border: none;
-  border-radius: 0.5rem;
-  padding: 0.2rem 0.5rem;
-  min-width: 8rem;
-  height: 1.75rem;
+  border-radius: 8px;
+  padding: 3px 8px;
+  min-width: 128px;
+  height: 28px;
   
   &::-webkit-calendar-picker-indicator{
     opacity: 0;

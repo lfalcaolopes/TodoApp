@@ -1,7 +1,7 @@
 import { CalendarBlank, Check, House } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import CategorySidebarItem from "../../molecules/CategorySidebarItem";
 import NewCategoryForm from "../../molecules/NewCategoryForm";
 import NewCategorySidebarItem from "../../molecules/NewCategorySidebarItem";
@@ -15,13 +15,17 @@ import * as ScrollArea from '@radix-ui/react-scroll-area';
 
 interface sidebarProps {
   setSelectedCategory: (category: string) => void;
+  setSidebarIsVisible: (isOpen: boolean) => void;
+  sidebarIsVisible: boolean;
 }
-  dayjs.extend(utc);
 
-const Sidebar = ({setSelectedCategory} : sidebarProps) => {
+dayjs.extend(utc);
+
+const Sidebar = ({setSelectedCategory, setSidebarIsVisible, sidebarIsVisible} : sidebarProps) => {
   const { categoryData, categoriesTasksAmount, setCategoryData, setTodoTaskData } = useContext(DataContext);
-
   const [categoryFormIsVisible, setCategoryFormIsVisible] = useState<boolean>(false);
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   function AddCategory(newCategory: categoryProps) {
     setCategoryData((prev) => [...(prev || []), newCategory]);
@@ -54,12 +58,41 @@ const Sidebar = ({setSelectedCategory} : sidebarProps) => {
 
       setTodoTaskData(filteredData);
       setSelectedCategory(selectedCategory);
+      setSidebarIsVisible(false);
     });
   }
 
+const handleClickOutside = (event: MouseEvent) => {
+  // Get the current width of the sidebar
+  const sidebarWidth = sidebarRef.current?.offsetWidth;
+
+  if (sidebarWidth && event.clientX > sidebarWidth) {
+    // Click happened outside the sidebar, close it
+    setSidebarIsVisible(false);
+  }
+};
+
+  useEffect(() => {
+    // Add the event listener when the component mounts
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if(!sidebarIsVisible) {
+      setCategoryFormIsVisible(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sidebarIsVisible]);
+
   return (
-    <Styled.ScrollareaRoot>
-      <ScrollArea.Viewport className="viewport">
+    <Styled.ScrollareaRoot ref={sidebarRef} $sidebarIsVisible={sidebarIsVisible}>
+      <ScrollArea.Viewport  className="viewport">
         <CategorySidebarItem categoryTitle={"Todas as atividades"} amount={categoriesTasksAmount?.get("all")} changeShownCategory={() => showSpecificCategory("all")}>
           <House size={24} weight="bold" />
         </CategorySidebarItem>

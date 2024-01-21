@@ -5,16 +5,16 @@ const Container = styled.div`
   max-width: 100rem;
   
   display: flex;
-  gap: 8rem;
+  gap: clamp(16px, 3vw, 80px);
   
   margin: 0 auto;
-  padding: 5rem;
+  padding: clamp(24px, 5vw, 80px) clamp(16px, 3vw, 80px);
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: clamp(1.5rem, 3vw, 5rem);
   width: 100%;
 `;
 

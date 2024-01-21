@@ -68,8 +68,6 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
     const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
 
     api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
-      console.log("TaskCardUpdate", response)
-
       setTodoTaskData((prev) => {
         return prev?.map(item => {
           if (item.id === todoTask.id) {
@@ -86,7 +84,6 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
 
   useEffect(() => {
     if (!watchDueDate) return;
-
 
     if (watchDueDate !== todoTask.dueDate.split('T')[0]) {
 

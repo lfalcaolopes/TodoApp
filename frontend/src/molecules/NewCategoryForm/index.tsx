@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Eyedropper, X } from "@phosphor-icons/react";
 import * as Popover from "@radix-ui/react-popover";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import api from "../../utils/Axios";
@@ -68,6 +68,13 @@ const NewCategoryForm = ({ isVisible, HideCategoryForm, AddCategory }: NewCatego
     setSelectedColor("#fff");
     if(hideCategoryForm) HideCategoryForm();
   }
+
+  useEffect(() => {
+    if (!isVisible) {
+      handleFormReset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVisible]);
 
   return (
     <Styled.Form onSubmit={handleSubmit(createCategory)} $isVisible={isVisible}>

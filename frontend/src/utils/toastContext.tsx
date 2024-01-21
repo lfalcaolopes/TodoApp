@@ -30,7 +30,7 @@ const ToastProvider = ({ children }: { children: ReactNode}) => {
     {children}
 
     <Toast.Provider swipeDirection="right">
-      <StyledToastRoot open={openToast} onOpenChange={setOpenToast} type={toastData.type} duration={toastData.duration || 3000}>
+      <StyledToastRoot open={openToast} onOpenChange={setOpenToast} $toastType={toastData.type} duration={toastData.duration || 3000}>
         <Toast.Title className="toastTitle">{toastData.title}</Toast.Title>
         <Toast.Description className='toastDescription'>{toastData.message}</Toast.Description>
       </StyledToastRoot>
@@ -41,19 +41,19 @@ const ToastProvider = ({ children }: { children: ReactNode}) => {
   );
 };
 
-const StyledToastRoot = styled(Toast.Root)<{type: "success" | "error" | "warning"}>`
+const StyledToastRoot = styled(Toast.Root)<{$toastType: "success" | "error" | "warning"}>`
 
-  ${( props ) => props.type === "error" && `
+  ${( props ) => props.$toastType === "error" && `
     background-color: ${props.theme.functionalColors.errorBackground.toString()};
     border: 2px solid ${props.theme.functionalColors.error.toString()};
   `}
 
-  ${( props ) => props.type === "success" && `
+  ${( props ) => props.$toastType === "success" && `
     background-color: ${props.theme.functionalColors.successBackground.toString()};
     border: 2px solid ${props.theme.functionalColors.success.toString()};
   `}
 
-  ${( props ) => props.type === "warning" && `
+  ${( props ) => props.$toastType === "warning" && `
     background-color: ${props.theme.functionalColors.warningBackground.toString()};
     border: 2px solid ${props.theme.functionalColors.warning.toString()};
   `}
@@ -67,15 +67,15 @@ const StyledToastRoot = styled(Toast.Root)<{type: "success" | "error" | "warning
   .toastTitle {
     font-size: 1rem;
 
-  ${( props ) => props.type === "error" && `
+  ${( props ) => props.$toastType === "error" && `
     color: ${props.theme.functionalColors.error.toString()};
   `}
 
-  ${( props ) => props.type === "success" && `
+  ${( props ) => props.$toastType === "success" && `
     color: ${props.theme.functionalColors.success.toString()};
   `}
 
-  ${( props ) => props.type === "warning" && `
+  ${( props ) => props.$toastType === "warning" && `
     color: ${props.theme.functionalColors.warning.toString()};
   `}
   }
@@ -83,15 +83,15 @@ const StyledToastRoot = styled(Toast.Root)<{type: "success" | "error" | "warning
   .toastDescription {
     font-size: 1.1rem;
 
-  ${( props ) => props.type === "error" && `
+  ${( props ) => props.$toastType === "error" && `
     color: ${props.theme.functionalColors.errorDark.toString()};
   `}
 
-  ${( props ) => props.type === "success" && `
+  ${( props ) => props.$toastType === "success" && `
     color: ${props.theme.functionalColors.successDark.toString()};
   `}
 
-  ${( props ) => props.type === "warning" && `
+  ${( props ) => props.$toastType === "warning" && `
     color: ${props.theme.functionalColors.warningDark.toString()};
   `}
   }
