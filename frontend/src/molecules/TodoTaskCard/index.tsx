@@ -64,13 +64,13 @@ const TodoTaskCard = ({ todoTask }: TodoTaskCardProps) => {
   }
 
   function onSubmit(data: updateTodoTaskProps) {
-
     const updateTodoTask = {dueDate: new Date(data.dueDate).toISOString()}
 
     api.put(`/todotasks/${todoTask.id}`, updateTodoTask).then(response => {
       setTodoTaskData((prev) => {
         return prev?.map(item => {
           if (item.id === todoTask.id) {
+            updateSidebar();
             return {...item, dueDate: response.data.dueDate};
           }
           return item;

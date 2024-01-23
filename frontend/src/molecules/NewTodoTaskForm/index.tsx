@@ -41,7 +41,6 @@ function NewTodoTaskModal({todoTaskFormIsVisible, closeModal} : NewTodoTaskModal
     const createTodoTask = {...data, dueDate: new Date(data.dueDate).toISOString(), categoryId: parseInt(data.categoryId)}
 
     api.post('/todotasks', createTodoTask).then(response => {
-      console.log("createTask", response)
       if (response.status === 200) {
         setTodoTaskData((prev) => [...(prev || []), response.data]);
         updateSidebar();

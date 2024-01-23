@@ -48,6 +48,15 @@ const Form = styled.form`
     height: fit-content;
     margin-right: 0.5rem;
   }
+
+  .date-selector {
+    max-width: 20rem;
+
+    @media (max-width: 490px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 `;
 
 export { Container, Form, TaskData, TaskHeader };

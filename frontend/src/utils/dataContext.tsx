@@ -57,7 +57,7 @@ const DataProvider = ({ children }: { children: ReactNode}) => {
          });
        }
 
-       if (dayjs().isSame(dueDate, "day")) {
+       if (dayjs.utc(dueDate).format('YYYY-MM-DD') === dayjs.utc().format('YYYY-MM-DD')) {
          updateTasksAmountMap(prevMap => {
            const currentValue = prevMap.get("today") || 0;
            return new Map(prevMap.set("today", currentValue + 1));

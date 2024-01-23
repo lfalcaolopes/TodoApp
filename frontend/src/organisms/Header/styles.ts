@@ -55,7 +55,7 @@ const MobileButton = styled.button`
   border-radius: 100%;
   padding: 1rem;
   
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 
@@ -64,6 +64,10 @@ const MobileButton = styled.button`
   right: clamp(1rem, 3vw, 5rem);
 
   z-index: 100;
+
+  @media (max-width: 991px) {
+    display: flex;
+  }
 `;
 
 export { Container, MobileButton }
