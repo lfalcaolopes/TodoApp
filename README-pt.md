@@ -26,7 +26,7 @@
 
 ## 🔖 Sobre
 
-O projeto começou com o design da interface do usuário do zero usando Figma. No frontend, React foi empregado com TypeScript para verificação de tipo, e Styled Components foram utilizados para estilização, criando uma interface de usuário visualmente atraente e responsiva. O backend, desenvolvido em C# e Entity Framework, seguiu os princípios do Domain-Driven Design para estabelecer uma arquitetura estruturada. O PostgreSQL serviu como banco de dados, suportando funcionalidades como criação de tarefas, organização por categoria e data de vencimento, além de um poderoso recurso de pesquisa para localizar tarefas específicas de forma eficiente. Os esforços combinados em tecnologias frontend e backend resultaram em um aplicativo de gerenciamento de tarefas coeso e fácil de usar.
+O projeto começou com o design da interface do usuário do zero usando Figma. No frontend, React foi usado com TypeScript, e Styled Components foi utilizado para estilização, criando uma interface de usuário visualmente atraente e responsiva. O backend, desenvolvido em C# e Entity Framework, seguiu os princípios do Domain-Driven Design para estabelecer uma arquitetura estruturada. O PostgreSQL serviu como banco de dados, suportando funcionalidades como criação de tarefas, organização por categoria e prazo, além de um poderoso recurso de pesquisa para localizar tarefas específicas de forma eficiente. Os esforços combinados em tecnologias frontend e backend resultaram em um aplicativo de gerenciamento de tarefas coeso e fácil de usar.
 
 
 ## 💻 Demonstração
