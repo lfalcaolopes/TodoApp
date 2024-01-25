@@ -1,0 +1,14 @@
+services:
+  # A Docker web service
+  - type: web
+    name: todoapp
+    runtime: docker
+    repo: https://github.com/lfalcaolopes/TodoApp.git # optional
+    plan: free # optional (defaults to starter instance type)
+    rootDir: ./backend
+    dockerfilePath: ./backend/Dockerfile # optional (defaults to Dockerfile)
+
+databases:
+  - name: TodoAppApi
+    user: postgres # optional
+    plan: free
