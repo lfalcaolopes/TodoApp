@@ -10,5 +10,4 @@ services:
 
 databases:
   - name: TodoAppApi
-    user: postgres # optional
     plan: free
