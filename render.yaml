@@ -5,7 +5,6 @@ services:
     runtime: docker
     repo: https://github.com/lfalcaolopes/TodoApp.git # optional
     plan: free # optional (defaults to starter instance type)
-    rootDir: ./backend
     dockerfilePath: ./backend/Dockerfile # optional (defaults to Dockerfile)
 
 databases:
