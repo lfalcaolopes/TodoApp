@@ -4,6 +4,7 @@ services:
     name: todoapp
     runtime: docker
     repo: https://github.com/lfalcaolopes/TodoApp.git # optional
+    region: ohio 
     plan: free # optional (defaults to starter instance type)
     dockerfilePath: ./backend/Dockerfile # optional (defaults to Dockerfile)
 
