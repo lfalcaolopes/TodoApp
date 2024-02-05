@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: allowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173")
+            policy.WithOrigins("https://todo-app-zeta-lake.vercel.app/")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
