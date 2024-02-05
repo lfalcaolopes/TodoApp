@@ -55,6 +55,27 @@ builder.Services
 
 var app = builder.Build();
 
+// Resolve the service scope factory
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        // Get the instance of your DB context
+        var context = services.GetRequiredService<TodoDataContext>();
+
+        // Apply the migrations
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        // Log the error if something goes wrong
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
