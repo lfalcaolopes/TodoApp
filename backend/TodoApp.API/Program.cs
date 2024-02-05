@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: allowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://todo-app-zeta-lake.vercel.app/", "https://todoapp-c2ki.onrender.com")
+            policy.WithOrigins("https://todo-app-zeta-lake.vercel.app")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
