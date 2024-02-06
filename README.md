@@ -34,12 +34,18 @@ The project began with designing the user interface from scratch using Figma. On
 https://github.com/lfalcaolopes/TodoApp/assets/61370784/51ba6ec2-5ab6-49e1-a379-c4dc33834d1f
 
 <h3 align="center">
-    <a href="https://todo-app-zeta-lake.vercel.app/">Access demo</a>
-</h3 >
-<h3 align="center">
     <a href="https://www.figma.com/file/ZDdFHL6mx4cf3wSvLAyeXa/TodoApp?type=design&node-id=4%3A211&mode=design&t=IDk1rKIjlKBDJFRu-1">Figma design</a>
 </h3 >
+<h3 align="center">
+    <a href="https://todo-app-zeta-lake.vercel.app/">Access demo</a>
+</h3 >
 
+<p align="center">
+    ⚠️WARNING⚠️
+</p >
+<p align="center">
+    Please be advised that the initial loading time of this application may be longer than expected due to platform limitations associated with hosting the backend. When fully loaded the application will refresh automatically.
+</p >
 
 ## ℹ How to run
 
