@@ -1,6 +1,4 @@
-﻿using TodoApp.Domain.DTOs;
-using TodoApp.Domain.DTOs.TodoTask;
-using TodoApp.Domain.Entities;
+﻿using TodoApp.Domain.DTOs.TodoTask;
 
 namespace TodoApp.Domain.Interfaces.Handlers;
 

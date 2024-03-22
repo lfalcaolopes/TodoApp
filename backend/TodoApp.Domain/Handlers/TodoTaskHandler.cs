@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TodoApp.Domain.DTOs;
 using TodoApp.Domain.DTOs.TodoTask;
 using TodoApp.Domain.Entities;
 using TodoApp.Domain.Exceptions;

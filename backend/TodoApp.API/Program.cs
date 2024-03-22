@@ -5,6 +5,9 @@ using TodoApp.Data.Context;
 using TodoApp.Domain.DTOs;
 using TodoApp.Domain;
 using TodoApp.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var allowSpecificOrigins = "_allowSpecificOrigins";
 
@@ -32,6 +35,22 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// JWT authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuers = Configuration.GetSection("Jwt:Issuer").Get<List<string>>(),
+            ValidAudiences = Configuration.GetSection("Jwt:Audiences").Get<List<string>>(),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+        };
+    });
 
 // Setup database connection
 builder.Services.AddDbContext<TodoDataContext>(options =>

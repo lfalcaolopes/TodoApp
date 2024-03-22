@@ -10,6 +10,7 @@ public static class DomainDependencyInjection
     {
         services.AddScoped<ITodoTaskHandler, TodoTaskHandler>();
         services.AddScoped<ICategoryHandler, CategoryHandler>();
+        services.AddScoped<IUserHandler, UserHandler>();
 
         return services;
     }
