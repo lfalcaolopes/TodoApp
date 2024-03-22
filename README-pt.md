@@ -34,11 +34,18 @@ O projeto começou com o design da interface do usuário do zero usando Figma. N
 https://github.com/lfalcaolopes/TodoApp/assets/61370784/51ba6ec2-5ab6-49e1-a379-c4dc33834d1f
 
 <h3 align="center">
-    <a href="https://todo-app-zeta-lake.vercel.app/">Acessar a demonstração</a>
-</h3 >
-<h3 align="center">
     <a href="https://www.figma.com/file/ZDdFHL6mx4cf3wSvLAyeXa/TodoApp?type=design&node-id=4%3A211&mode=design&t=IDk1rKIjlKBDJFRu-1">Figma design</a>
 </h3 >
+<h3 align="center">
+    <a href="https://todo-app-zeta-lake.vercel.app/">Acessar a demonstração</a>
+</h3 >
+
+<p align="center">
+    ⚠️AVISO⚠️
+</p >
+<p align="center">
+    O tempo de carregamento inicial desta aplicação pode ser maior do que o esperado devido às limitações da plataforma associadas à hospedagem do back-end. Quando totalmente carregado, a aplicação será atualizada automaticamente.
+</p >
 
 ## ℹ Como rodar
 
